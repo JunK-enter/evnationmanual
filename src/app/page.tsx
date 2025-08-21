@@ -106,10 +106,17 @@ export default function Home() {
     return matchesCategory && matchesSearch;
   });
 
-  const handleDownload = async (pdfUrl: string, title: string) => {
+  const handleDownload = async (manualId: string, title: string) => {
     try {
-      console.log(`Downloading ${title} from ${pdfUrl}`);
-      alert(`${title} 다운로드가 시작됩니다.`);
+      const res = await fetch(`/api/download/${manualId}`);
+      if (!res.ok) throw new Error('Download link not found');
+      const json = await res.json();
+      const link = document.createElement('a');
+      link.href = json.data.downloadUrl;
+      link.download = `${title}.pdf`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     } catch (error) {
       console.error('다운로드 오류:', error);
       alert('다운로드 중 오류가 발생했습니다.');
@@ -312,7 +319,7 @@ export default function Home() {
                       
                       <div className="flex space-x-3">
                         <button
-                          onClick={() => handleDownload(manual.pdfUrl, manual.title)}
+                          onClick={() => handleDownload(manual.id, manual.title)}
                           className="flex-1 flex items-center justify-center space-x-2 px-4 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-medium rounded-xl hover:from-blue-600 hover:to-purple-700 transition-all duration-300 transform hover:scale-105"
                         >
                           <Download className="w-4 h-4" />

@@ -8,13 +8,18 @@ export interface FlipPageData {
   content: string;
 }
 
+export interface FlipBookRef {
+  flipNext: () => void;
+  flipPrev: () => void;
+}
+
 interface FlipBookProps {
   pages: FlipPageData[];
   scalePercent: number; // 50 - 200
   onFlip?: (pageIndex: number) => void;
 }
 
-const FlipBook = forwardRef<any, FlipBookProps>(({ pages, scalePercent, onFlip }, ref) => {
+const FlipBook = forwardRef<FlipBookRef, FlipBookProps>(({ pages, scalePercent, onFlip }, ref) => {
   const wrapperRef = useRef<HTMLDivElement | null>(null);
   const [dims, setDims] = useState({ w: 1200, h: 800 });
 
@@ -45,7 +50,7 @@ const FlipBook = forwardRef<any, FlipBookProps>(({ pages, scalePercent, onFlip }
       <div className="pointer-events-none absolute inset-y-0 left-1/2 -translate-x-1/2 w-24 bg-gradient-to-r from-black/10 via-transparent to-black/10 opacity-40 z-10" />
 
       <HTMLFlipBook
-        ref={ref}
+        ref={ref as unknown as React.Ref<unknown>}
         width={dims.w}
         height={dims.h}
         size="fixed"
@@ -58,7 +63,7 @@ const FlipBook = forwardRef<any, FlipBookProps>(({ pages, scalePercent, onFlip }
         showCover={false}
         drawShadow
         className="rounded-2xl shadow-2xl overflow-hidden bg-neutral-200"
-        onFlip={(e: any) => onFlip?.(e.data)}
+        onFlip={(e: { data: number }) => onFlip?.(e.data)}
         flippingTime={700}
       >
         {pages.map((page, index) => {

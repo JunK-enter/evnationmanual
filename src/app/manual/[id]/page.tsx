@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, use, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { 
   ChevronLeft, 
   ChevronRight, 
@@ -12,13 +12,12 @@ import {
   ZoomOut,
   RotateCcw,
   Star,
-  Clock,
   Eye,
   Maximize2,
   Minimize2
 } from 'lucide-react';
 import Link from 'next/link';
-import FlipBook from '@/components/FlipBook';
+import FlipBook, { FlipBookRef } from '@/components/FlipBook';
 
 interface Page {
   id: number;
@@ -176,13 +175,13 @@ export default function ManualPage({ params }: { params: Promise<{ id: string }>
   const [zoom, setZoom] = useState(140);
   const [manual, setManual] = useState<Manual | null>(null);
   const [loading, setLoading] = useState(true);
-  const flipRef = useRef<any>(null);
+  const flipRef = useRef<FlipBookRef | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
 
   useEffect(() => {
     setTimeout(() => {
-      setManual(sampleManual);
+      setManual({ ...sampleManual, id });
       setLoading(false);
     }, 400);
   }, [id]);
@@ -211,14 +210,20 @@ export default function ManualPage({ params }: { params: Promise<{ id: string }>
   const prevPage = () => flipRef.current?.flipPrev?.();
 
   const handleDownload = async () => {
-    if (manual) {
-      try {
-        console.log(`Downloading ${manual.title}`);
-        alert(`${manual.title} 다운로드가 시작됩니다.`);
-      } catch (error) {
-        console.error('다운로드 오류:', error);
-        alert('다운로드 중 오류가 발생했습니다.');
-      }
+    if (!manual) return;
+    try {
+      const res = await fetch(`/api/download/${manual.id}`);
+      if (!res.ok) throw new Error('Download link not found');
+      const json = await res.json();
+      const link = document.createElement('a');
+      link.href = json.data.downloadUrl;
+      link.download = `${json.data.title}.pdf`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (error) {
+      console.error('다운로드 오류:', error);
+      alert('다운로드 중 오류가 발생했습니다.');
     }
   };
 
