@@ -40,7 +40,7 @@ export async function GET(
     // Check if file exists
     try {
       await fs.access(filePath);
-    } catch (error) {
+    } catch {
       return NextResponse.json(
         { error: 'PDF file not found' },
         { status: 404 }

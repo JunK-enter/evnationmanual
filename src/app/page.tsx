@@ -13,20 +13,13 @@ import {
   Users,
   Car,
   Settings,
-  Shield,
-  Wrench,
   BookOpen,
-  CheckCircle,
   Globe,
-  Database,
   Calculator,
   DollarSign,
   Phone,
-  Mail,
-  Calendar,
   AlertTriangle,
   Info,
-  ArrowUpRight,
   FileText
 } from 'lucide-react';
 import Link from 'next/link';
@@ -167,10 +160,10 @@ export default function Home() {
     return matchesCategory && matchesTag && matchesSearch;
   });
 
-  const filteredPrograms = programs.filter(program => {
-    return program.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-           program.description.toLowerCase().includes(searchTerm.toLowerCase());
-  });
+  // const filteredPrograms = programs.filter(program => {
+  //   return program.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  //          program.description.toLowerCase().includes(searchTerm.toLowerCase());
+  // });
 
   const handleDownload = async (pdfUrl: string, title: string, manualId: string) => {
     try {
