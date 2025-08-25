@@ -104,48 +104,48 @@ interface Program {
   icon: React.ReactNode;
 }
 
-const programs: Program[] = [
-  {
-    id: '1',
-    title: 'Electrum to Pipedrive Integration',
-    description: 'Integration tool for connecting Electrum data with Pipedrive CRM system.',
-    url: 'https://electransform.onrender.com/',
-    status: 'Active',
-    icon: <Calculator className="w-5 h-5 text-white" />
-  },
-  {
-    id: '2',
-    title: 'Load Calculator',
-    description: 'Advanced electrical load calculation tool for EV charger installations.',
-    url: 'https://evnation-load-calculator.vercel.app/',
-    status: 'Active',
-    icon: <Calculator className="w-5 h-5 text-purple-400" />
-  },
-  {
-    id: '3',
-    title: 'Optional Calculator',
-    description: 'Optional features and add-ons calculator for EV charger installations.',
-    url: 'https://evnation-optional-calculator.vercel.app/',
-    status: 'Active',
-    icon: <Settings className="w-5 h-5 text-orange-400" />
-  },
-  {
-    id: '4',
-    title: 'Project Pricing Summary',
-    description: 'Comprehensive project pricing and summary dashboard for all installations.',
-    url: 'https://evnation-master.vercel.app/',
-    status: 'Active',
-    icon: <DollarSign className="w-5 h-5 text-emerald-400" />
-  },
-  {
-    id: '5',
-    title: 'EVnation Main Website',
-    description: 'Official EVnation website with comprehensive information about services.',
-    url: 'https://evnation.us/',
-    status: 'Active',
-    icon: <Globe className="w-5 h-5 text-indigo-400" />
-  }
-];
+// const programs: Program[] = [
+//   {
+//     id: '1',
+//     title: 'Electrum to Pipedrive Integration',
+//     description: 'Integration tool for connecting Electrum data with Pipedrive CRM system.',
+//     url: 'https://electransform.onrender.com/',
+//     status: 'Active',
+//     icon: <Calculator className="w-5 h-5 text-white" />
+//   },
+//   {
+//     id: '2',
+//     title: 'Load Calculator',
+//     description: 'Advanced electrical load calculation tool for EV charger installations.',
+//     url: 'https://evnation-load-calculator.vercel.app/',
+//     status: 'Active',
+//     icon: <Calculator className="w-5 h-5 text-purple-400" />
+//   },
+//   {
+//     id: '3',
+//     title: 'Optional Calculator',
+//     description: 'Optional features and add-ons calculator for EV charger installations.',
+//     url: 'https://evnation-optional-calculator.vercel.app/',
+//     status: 'Active',
+//     icon: <Settings className="w-5 h-5 text-orange-400" />
+//   },
+//   {
+//     id: '4',
+//     title: 'Project Pricing Summary',
+//     description: 'Comprehensive project pricing and summary dashboard for all installations.',
+//     url: 'https://evnation-master.vercel.app/',
+//     status: 'Active',
+//     icon: <DollarSign className="w-5 h-5 text-emerald-400" />
+//   },
+//   {
+//     id: '5',
+//     title: 'EVnation Main Website',
+//     description: 'Official EVnation website with comprehensive information about services.',
+//     url: 'https://evnation.us/',
+//     status: 'Active',
+//     icon: <Globe className="w-5 h-5 text-indigo-400" />
+//   }
+// ];
 
 export default function Home() {
   const [selectedCategory, setSelectedCategory] = useState('All');
