@@ -111,7 +111,7 @@ interface FlipBookProps {
   onFlip?: (pageIndex: number) => void;
 }
 
-const FlipBook = ({ pages, scalePercent, onFlip }: FlipBookProps) => {
+const FlipBook = ({ pages }: FlipBookProps) => {
   return (
     <div className="w-full h-full flex items-center justify-center bg-gray-100 rounded-lg">
       <div className="text-center">

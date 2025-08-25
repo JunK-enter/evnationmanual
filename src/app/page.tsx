@@ -95,14 +95,14 @@ const manuals: Manual[] = [
 const categories = ['All', 'Company Info', 'Integration'];
 const tags = ['All', 'Employee', 'Electrician'];
 
-interface Program {
-  id: string;
-  title: string;
-  description: string;
-  url: string;
-  status: string;
-  icon: React.ReactNode;
-}
+// interface Program {
+//   id: string;
+//   title: string;
+//   description: string;
+//   url: string;
+//   status: string;
+//   icon: React.ReactNode;
+// }
 
 // const programs: Program[] = [
 //   {

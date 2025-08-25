@@ -22,10 +22,11 @@ const manuals = [
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params;
   try {
-    const manualId = params.id;
+    const manualId = id;
     const manual = manuals.find(m => m.id === manualId);
     
     if (!manual) {
