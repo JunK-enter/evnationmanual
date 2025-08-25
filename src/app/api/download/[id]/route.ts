@@ -51,8 +51,12 @@ export async function GET(
     // Read the file
     const fileBuffer = await fs.readFile(filePath);
     
+    // Convert to Uint8Array for NextResponse
+    const uint8Array = new Uint8Array(fileBuffer);
+    
     // Return the file with proper headers
-    return new NextResponse(fileBuffer as Buffer, {
+    return new NextResponse(uint8Array, {
+      status: 200,
       headers: {
         'Content-Type': 'application/pdf',
         'Content-Disposition': `attachment; filename="${manual.title}.pdf"`,
