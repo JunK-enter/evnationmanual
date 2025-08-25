@@ -1,341 +1,288 @@
 'use client';
 
-import { useState, useEffect, use, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useParams } from 'next/navigation';
+import { motion } from 'framer-motion';
 import { 
-  ChevronLeft, 
-  ChevronRight, 
+  Building2, 
   Download, 
-  BookOpen, 
-  Home,
-  ZoomIn,
-  ZoomOut,
-  RotateCcw,
-  Star,
-  Clock,
-  Eye,
-  Maximize2,
-  Minimize2
+  ArrowLeft, 
+  Star, 
+  Clock, 
+  Phone,
+  FileText,
+  Info,
+  AlertTriangle,
+  BookOpen,
+  Users,
+  CheckCircle
 } from 'lucide-react';
 import Link from 'next/link';
-import FlipBook from '@/components/FlipBook';
-
-interface Page {
-  id: number;
-  title: string;
-  content: string;
-  image?: string;
-}
 
 interface Manual {
   id: string;
   title: string;
   description: string;
   category: string;
-  pages: Page[];
+  tags: string[];
+  pages: number;
+  lastUpdated: string;
+  coverImage: string;
   pdfUrl: string;
+  rating?: number;
+  downloads?: number;
+  icon?: React.ReactNode;
+  keyFeatures?: string[];
+  targetAudience?: string;
 }
 
-// 샘플 데이터
-const sampleManual: Manual = {
-  id: '1',
-  title: '제품 사용자 매뉴얼',
-  description: 'Evnation 제품의 기본 사용법과 기능을 상세히 설명합니다.',
-  category: '제품',
-  pdfUrl: '/manuals/product-manual.pdf',
-  pages: [
-    {
-      id: 1,
-      title: '목차',
-      content: `
-        <h2>목차</h2>
-        <ul>
-          <li>1. 제품 소개</li>
-          <li>2. 설치 방법</li>
-          <li>3. 기본 사용법</li>
-          <li>4. 고급 기능</li>
-          <li>5. 문제 해결</li>
-          <li>6. 기술 지원</li>
-        </ul>
-      `
-    },
-    {
-      id: 2,
-      title: '제품 소개',
-      content: `
-        <h2>1. 제품 소개</h2>
-        <p>Evnation 제품은 최신 기술을 활용하여 사용자에게 최고의 경험을 제공합니다.</p>
-        <h3>주요 특징</h3>
-        <ul>
-          <li>직관적인 사용자 인터페이스</li>
-          <li>고성능 처리 능력</li>
-          <li>확장 가능한 아키텍처</li>
-          <li>24/7 기술 지원</li>
-        </ul>
-      `
-    },
-    {
-      id: 3,
-      title: '설치 방법',
-      content: `
-        <h2>2. 설치 방법</h2>
-        <p>다음 단계를 따라 제품을 설치하세요.</p>
-        <h3>시스템 요구사항</h3>
-        <ul>
-          <li>운영체제: Windows 10 이상, macOS 10.15 이상</li>
-          <li>메모리: 최소 8GB RAM</li>
-          <li>저장공간: 최소 2GB</li>
-          <li>인터넷 연결 필요</li>
-        </ul>
-        <h3>설치 단계</h3>
-        <ol>
-          <li>설치 파일을 다운로드합니다.</li>
-          <li>다운로드한 파일을 실행합니다.</li>
-          <li>라이선스 동의서를 확인하고 동의합니다.</li>
-          <li>설치 경로를 선택합니다.</li>
-          <li>설치를 완료합니다.</li>
-        </ol>
-      `
-    },
-    {
-      id: 4,
-      title: '기본 사용법',
-      content: `
-        <h2>3. 기본 사용법</h2>
-        <p>제품의 기본적인 사용 방법을 알아보세요.</p>
-        <h3>시작하기</h3>
-        <p>프로그램을 실행하면 메인 화면이 나타납니다. 좌측 메뉴에서 원하는 기능을 선택할 수 있습니다.</p>
-        <h3>주요 기능</h3>
-        <ul>
-          <li><strong>대시보드:</strong> 전체 현황을 한눈에 확인</li>
-          <li><strong>데이터 관리:</strong> 정보 입력, 수정, 삭제</li>
-          <li><strong>보고서:</strong> 다양한 형태의 리포트 생성</li>
-          <li><strong>설정:</strong> 시스템 환경 설정</li>
-        </ul>
-      `
-    },
-    {
-      id: 5,
-      title: '고급 기능',
-      content: `
-        <h2>4. 고급 기능</h2>
-        <p>고급 사용자를 위한 심화 기능들을 소개합니다.</p>
-        <h3>자동화 기능</h3>
-        <p>반복적인 작업을 자동화하여 업무 효율을 높일 수 있습니다.</p>
-        <h3>API 연동</h3>
-        <p>외부 시스템과의 연동을 통해 데이터를 주고받을 수 있습니다.</p>
-        <h3>백업 및 복구</h3>
-        <p>정기적인 백업을 통해 데이터 손실을 방지할 수 있습니다.</p>
-      `
-    },
-    {
-      id: 6,
-      title: '문제 해결',
-      content: `
-        <h2>5. 문제 해결</h2>
-        <p>자주 발생하는 문제들과 해결 방법을 안내합니다.</p>
-        <h3>일반적인 문제</h3>
-        <div class="problem-solution">
-          <h4>프로그램이 실행되지 않습니다</h4>
-          <p><strong>해결방법:</strong> 시스템 요구사항을 확인하고 재부팅 후 다시 시도해보세요.</p>
-        </div>
-        <div class="problem-solution">
-          <h4>데이터가 저장되지 않습니다</h4>
-          <p><strong>해결방법:</strong> 저장 경로의 권한을 확인하고 디스크 공간을 점검해보세요.</p>
-        </div>
-        <div class="problem-solution">
-          <h4>느린 성능</h4>
-          <p><strong>해결방법:</strong> 불필요한 프로그램을 종료하고 메모리 사용량을 확인해보세요.</p>
-        </div>
-      `
-    },
-    {
-      id: 7,
-      title: '기술 지원',
-      content: `
-        <h2>6. 기술 지원</h2>
-        <p>추가적인 도움이 필요하시면 언제든지 연락해주세요.</p>
-        <h3>지원 채널</h3>
-        <ul>
-          <li><strong>이메일:</strong> support@evnation.com</li>
-          <li><strong>전화:</strong> 1588-0000</li>
-          <li><strong>온라인 채팅:</strong> 웹사이트에서 실시간 상담</li>
-          <li><strong>FAQ:</strong> 자주 묻는 질문과 답변</li>
-        </ul>
-        <h3>지원 시간</h3>
-        <p>평일: 09:00 - 18:00<br/>
-        주말 및 공휴일: 10:00 - 17:00</p>
-      `
-    }
-  ]
-};
-
-export default function ManualPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = use(params);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [zoom, setZoom] = useState(140);
-  const [manual, setManual] = useState<Manual | null>(null);
-  const [loading, setLoading] = useState(true);
-  const flipRef = useRef<any>(null);
-  const containerRef = useRef<HTMLDivElement | null>(null);
-  const [isFullscreen, setIsFullscreen] = useState(false);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setManual(sampleManual);
-      setLoading(false);
-    }, 400);
-  }, [id]);
-
-  useEffect(() => {
-    const onFsChange = () => {
-      setIsFullscreen(Boolean(document.fullscreenElement));
-    };
-    document.addEventListener('fullscreenchange', onFsChange);
-    return () => document.removeEventListener('fullscreenchange', onFsChange);
-  }, []);
-
-  const toggleFullscreen = async () => {
-    try {
-      if (!document.fullscreenElement) {
-        await containerRef.current?.requestFullscreen?.();
-      } else {
-        await document.exitFullscreen();
-      }
-    } catch (e) {
-      console.error('Fullscreen error', e);
-    }
-  };
-
-  const nextPage = () => flipRef.current?.flipNext?.();
-  const prevPage = () => flipRef.current?.flipPrev?.();
-
-  const handleDownload = async () => {
-    if (manual) {
-      try {
-        console.log(`Downloading ${manual.title}`);
-        alert(`${manual.title} 다운로드가 시작됩니다.`);
-      } catch (error) {
-        console.error('다운로드 오류:', error);
-        alert('다운로드 중 오류가 발생했습니다.');
-      }
-    }
-  };
-
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 flex items-center justify-center">
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center">
-          <div className="w-20 h-20 border-4 border-white border-t-transparent rounded-full animate-spin mx-auto mb-6"></div>
-          <p className="text-white text-xl">메뉴얼을 불러오는 중...</p>
-        </motion.div>
-      </div>
-    );
+const manuals: Manual[] = [
+  {
+    id: '1',
+    title: 'Company Overview & Organization Chart',
+    description: 'Essential company information including EVnation introduction, organizational structure, key personnel, contact details, company policies, and operational guidelines. This manual provides comprehensive understanding of EVnation\'s business model, service areas, and internal communication protocols.',
+    category: 'Company Info',
+    tags: ['Employee', 'Electrician'],
+    pages: 25,
+    lastUpdated: '2024-01-15',
+    coverImage: '/api/placeholder/300/400',
+    pdfUrl: '/manuals/company-overview.pdf',
+    rating: 4.9,
+    downloads: 1250,
+    icon: <Building2 className="w-6 h-6 text-white" />,
+    keyFeatures: ['Company Introduction', 'Organization Chart', 'Contact Information', 'Company Policies', 'Operational Guidelines'],
+    targetAudience: 'All EVnation employees and contractors'
+  },
+  {
+    id: '2',
+    title: 'RingCentral Communication System Manual',
+    description: 'Complete user guide for RingCentral phone system including setup, team calling features, text messaging, voicemail management, call forwarding, conference calls, and automatic activity logging. Essential for internal team communication and client interaction tracking.',
+    category: 'Integration',
+    tags: ['Employee'],
+    pages: 18,
+    lastUpdated: '2024-01-25',
+    coverImage: '/api/placeholder/300/400',
+    pdfUrl: '/manuals/RCmanual.pdf',
+    rating: 4.9,
+    downloads: 320,
+    icon: <Phone className="w-6 h-6 text-white" />,
+    keyFeatures: ['Phone System Setup', 'Team Calling', 'Text Messaging', 'Voicemail Management', 'Call Forwarding', 'Conference Calls', 'Activity Logging'],
+    targetAudience: 'Internal EVnation employees'
+  },
+  {
+    id: '3',
+    title: 'Project Pricing Summary & Master Page Tool',
+    description: 'Comprehensive guide for the EVNation Master Page tool covering client information management, electrical load calculations, project cost estimation, PDF report generation, and project tracking. This tool is crucial for creating professional proposals and managing installation projects from start to finish.',
+    category: 'Integration',
+    tags: ['Employee'],
+    pages: 15,
+    lastUpdated: '2024-01-25',
+    coverImage: '/api/placeholder/300/400',
+    pdfUrl: '/manuals/projectpricingsum.pdf',
+    rating: 4.8,
+    downloads: 280,
+    icon: <FileText className="w-6 h-6 text-white" />,
+    keyFeatures: ['Client Information Management', 'Load Calculations', 'Cost Estimation', 'PDF Report Generation', 'Project Tracking', 'Professional Proposals'],
+    targetAudience: 'EVnation project managers and sales team'
   }
+];
 
+export default function ManualPage() {
+  const params = useParams();
+  const manualId = params.id as string;
+  
+  const manual = manuals.find(m => m.id === manualId);
+  
   if (!manual) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-emerald-900 flex items-center justify-center">
         <div className="text-center">
-          <h2 className="text-3xl font-bold text-white mb-4">메뉴얼을 찾을 수 없습니다</h2>
-          <Link href="/" className="text-blue-300 hover:text-white transition-colors">홈으로 돌아가기</Link>
+          <h1 className="text-4xl font-bold text-white mb-4">Manual Not Found</h1>
+          <p className="text-blue-200 mb-8">The requested manual could not be found.</p>
+          <Link 
+            href="/"
+            className="inline-flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-emerald-600 text-white font-medium rounded-xl hover:from-blue-600 hover:to-emerald-700 transition-all duration-300"
+          >
+            <ArrowLeft className="w-5 h-5" />
+            <span>Back to Manuals</span>
+          </Link>
         </div>
       </div>
     );
   }
 
+  const handleDownload = async () => {
+    try {
+      console.log(`Downloading ${manual.title} with ID ${manual.id}`);
+      
+      // Use the API route for download
+      const response = await fetch(`/api/download/${manual.id}`);
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+      // Get the blob from the response
+      const blob = await response.blob();
+      
+      // Create a download link
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `${manual.title}.pdf`;
+      
+      // Trigger download
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      
+      // Clean up the URL object
+      window.URL.revokeObjectURL(url);
+      
+      console.log(`${manual.title} download completed successfully.`);
+    } catch (error) {
+      console.error('Download error:', error);
+      alert('An error occurred during download. Please try again.');
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-emerald-900">
       {/* Header */}
-      <header className="glass-effect sticky top-0 z-50">
+      <header className="bg-white/10 backdrop-blur-md border-b border-white/20 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
-            <div className="flex items-center space-x-6">
-              <Link href="/" className="flex items-center space-x-3 text-white hover:text-blue-200 transition-colors">
-                <Home className="w-5 h-5" />
-                <span className="font-medium">홈</span>
-              </Link>
-              <div className="w-px h-8 bg-white/20"></div>
-              <div className="flex items-center space-x-3">
-                <BookOpen className="w-6 h-6 text-blue-300" />
-                <span className="font-medium text-white">{manual.title}</span>
-              </div>
-            </div>
+            <Link href="/" className="flex items-center space-x-4 text-white hover:text-blue-300 transition-colors">
+              <ArrowLeft className="w-6 h-6" />
+              <span className="text-lg font-medium">Back to Manuals</span>
+            </Link>
             
             <div className="flex items-center space-x-4">
               <div className="flex items-center space-x-2 text-white/80">
-                <Eye className="w-4 h-4" />
-                <span className="text-sm">1,234 조회</span>
+                <BookOpen className="w-5 h-5" />
+                <span className="text-sm">Manual Preview</span>
               </div>
-              <div className="flex items-center space-x-2 text-white/80">
-                <Star className="w-4 h-4 text-yellow-400" />
-                <span className="text-sm">4.8/5.0</span>
-              </div>
-              <button onClick={handleDownload} className="flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-medium rounded-xl hover:from-blue-600 hover:to-purple-700 transition-all duration-300 transform hover:scale-105">
-                <Download className="w-4 h-4" />
-                <span>PDF 다운로드</span>
-              </button>
             </div>
           </div>
         </div>
       </header>
 
       {/* Main Content */}
-      <main className="relative z-10 pt-8 pb-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div ref={containerRef} className={`glass-card rounded-3xl overflow-hidden p-4 md:p-8 ${isFullscreen ? 'fixed inset-0 z-50 rounded-none p-4 md:p-8' : ''}`}>
-            {/* Fullscreen top bar when active */}
-            {isFullscreen && (
-              <div className="absolute top-2 right-2 flex items-center gap-2">
-                <button onClick={toggleFullscreen} className="px-3 py-2 bg-white/90 border-2 border-gray-200 rounded-lg hover:border-blue-500 hover:text-blue-600">
-                  <Minimize2 className="w-4 h-4" />
-                </button>
+      <main className="relative z-10 py-12">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20"
+          >
+            {/* Manual Header */}
+            <div className="flex items-start space-x-6 mb-8">
+              <div className="w-20 h-20 bg-gradient-to-br from-blue-500/30 to-emerald-600/30 rounded-2xl flex items-center justify-center flex-shrink-0">
+                {manual.icon}
+              </div>
+              
+              <div className="flex-1">
+                <div className="flex items-center space-x-3 mb-3">
+                  <span className="px-3 py-1 bg-gradient-to-r from-blue-500 to-emerald-600 text-white text-sm font-medium rounded-full">
+                    {manual.category}
+                  </span>
+                  <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-500/20 text-yellow-300 border border-yellow-500/30">
+                    <Info className="w-3 h-3 mr-1" />
+                    {manual.category === 'Company Info' ? 'Company Documentation' : 'Technical Guide'}
+                  </span>
+                </div>
+                
+                <h1 className="text-3xl font-bold text-white mb-3">{manual.title}</h1>
+                
+                <div className="flex items-center space-x-6 text-sm text-gray-300">
+                  <div className="flex items-center space-x-1">
+                    <Star className="w-4 h-4 text-yellow-400" />
+                    <span>{manual.rating}</span>
+                  </div>
+                  <div className="flex items-center space-x-1">
+                    <Download className="w-4 h-4" />
+                    <span>{manual.downloads?.toLocaleString()} downloads</span>
+                  </div>
+                  <div className="flex items-center space-x-1">
+                    <Clock className="w-4 h-4" />
+                    <span>{manual.pages} pages</span>
+                  </div>
+                  <div className="flex items-center space-x-1">
+                    <span>Updated: {manual.lastUpdated}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Description */}
+            <div className="mb-8">
+              <h2 className="text-xl font-semibold text-white mb-4">Description</h2>
+              <p className="text-gray-300 leading-relaxed">{manual.description}</p>
+            </div>
+
+            {/* Key Features */}
+            {manual.keyFeatures && (
+              <div className="mb-8">
+                <h2 className="text-xl font-semibold text-white mb-4">Key Features</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  {manual.keyFeatures.map((feature, index) => (
+                    <div key={index} className="flex items-center space-x-3 p-3 bg-white/5 rounded-lg border border-white/10">
+                      <CheckCircle className="w-5 h-5 text-emerald-400 flex-shrink-0" />
+                      <span className="text-gray-300">{feature}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
             )}
-            {/* Flipbook */}
-            <div className={`flex justify-center items-center ${isFullscreen ? 'h-[calc(100vh-4rem)]' : 'h-[85vh]'}`}>
-              <FlipBook
-                ref={flipRef}
-                pages={manual.pages.map(p => ({ id: p.id, content: p.content }))}
-                scalePercent={zoom}
-                onFlip={(index) => setCurrentPage(index + 1)}
-              />
-            </div>
 
-            {/* Controls */}
-            <div className="mt-8 flex items-center justify-between">
-              <div className="flex items-center space-x-4">
-                <button onClick={() => setZoom(Math.max(50, zoom - 10))} className="px-4 py-3 bg-white border-2 border-gray-200 rounded-xl hover:border-blue-500 hover:text-blue-600 transition-colors">
-                  <ZoomOut className="w-5 h-5" />
-                </button>
-                <span className="text-white/90 font-medium">{zoom}%</span>
-                <button onClick={() => setZoom(Math.min(200, zoom + 10))} className="px-4 py-3 bg-white border-2 border-gray-200 rounded-xl hover:border-blue-500 hover:text-blue-600 transition-colors">
-                  <ZoomIn className="w-5 h-5" />
-                </button>
-                <button onClick={() => setZoom(100)} className="px-4 py-3 bg-white border-2 border-gray-200 rounded-xl hover:border-blue-500 hover:text-blue-600 transition-colors">
-                  <RotateCcw className="w-5 h-5" />
-                </button>
-              </div>
-
-              <div className="flex items-center space-x-6">
-                <button onClick={prevPage} className="flex items-center space-x-2 px-6 py-3 bg-white border-2 border-gray-200 rounded-xl hover:border-blue-500 hover:text-blue-600 transition-all duration-300 transform hover:scale-105">
-                  <ChevronLeft className="w-5 h-5" />
-                  <span className="font-medium">이전</span>
-                </button>
-                <div className="text-center text-white">
-                  <div className="text-2xl font-bold">{currentPage} / {manual.pages.length}</div>
+            {/* Target Audience */}
+            {manual.targetAudience && (
+              <div className="mb-8">
+                <h2 className="text-xl font-semibold text-white mb-4">Target Audience</h2>
+                <div className="flex items-center space-x-3 p-4 bg-emerald-500/10 rounded-lg border border-emerald-500/20">
+                  <Users className="w-6 h-6 text-emerald-400 flex-shrink-0" />
+                  <span className="text-gray-300">{manual.targetAudience}</span>
                 </div>
-                <button onClick={nextPage} className="flex items-center space-x-2 px-6 py-3 bg-white border-2 border-gray-200 rounded-xl hover:border-blue-500 hover:text-blue-600 transition-all duration-300 transform hover:scale-105">
-                  <span className="font-medium">다음</span>
-                  <ChevronRight className="w-5 h-5" />
-                </button>
-                <button onClick={toggleFullscreen} className="flex items-center space-x-2 px-4 py-3 bg-white border-2 border-gray-200 rounded-xl hover:border-blue-500 hover:text-blue-600 transition-colors">
-                  {isFullscreen ? <Minimize2 className="w-5 h-5" /> : <Maximize2 className="w-5 h-5" />}
-                  <span className="hidden md:inline">{isFullscreen ? '축소' : '전체화면'}</span>
+              </div>
+            )}
+
+            {/* Importance Note */}
+            <div className="mb-8 p-6 bg-gradient-to-r from-blue-500/10 to-emerald-500/10 rounded-xl border border-blue-500/20">
+              <div className="flex items-start space-x-3">
+                <AlertTriangle className="w-6 h-6 text-yellow-400 mt-1 flex-shrink-0" />
+                <div>
+                  <h3 className="text-lg font-semibold text-yellow-300 mb-2">Important Note</h3>
+                  <p className="text-gray-300 leading-relaxed">
+                    {manual.id === '1' 
+                      ? 'This manual is essential for all team members to understand company structure and policies. It provides the foundation for effective communication and operational procedures within EVnation.'
+                      : manual.id === '2'
+                      ? 'This manual is critical for internal communication and client interaction tracking. Proper use of RingCentral ensures seamless team collaboration and professional client communication.'
+                      : 'This manual is vital for project management and professional client proposals. The Master Page tool is the cornerstone of our project delivery process and client relationship management.'
+                    }
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Download Section */}
+            <div className="border-t border-white/20 pt-8">
+              <div className="flex flex-col sm:flex-row items-center justify-between space-y-4 sm:space-y-0 sm:space-x-6">
+                <div className="text-center sm:text-left">
+                  <h3 className="text-lg font-semibold text-white mb-2">Ready to Download?</h3>
+                  <p className="text-gray-300 text-sm">
+                    Download this manual as a PDF file for offline access and easy sharing.
+                  </p>
+                </div>
+                
+                <button
+                  onClick={handleDownload}
+                  className="flex items-center space-x-2 px-8 py-4 bg-gradient-to-r from-blue-500 to-emerald-600 text-white font-medium rounded-xl hover:from-blue-600 hover:to-emerald-700 transition-all duration-300 transform hover:scale-105 shadow-lg"
+                >
+                  <Download className="w-5 h-5" />
+                  <span>Download PDF</span>
                 </button>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </main>
     </div>

@@ -11,6 +11,15 @@ const config: Config = {
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
       },
+      fontSmoothing: {
+        'antialiased': 'antialiased',
+        'subpixel-antialiased': 'subpixel-antialiased',
+      },
+      textRendering: {
+        'optimize-legibility': 'optimizeLegibility',
+        'optimize-speed': 'optimizeSpeed',
+        'geometric-precision': 'geometricPrecision',
+      },
     },
   },
   plugins: [],

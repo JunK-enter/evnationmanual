@@ -1,65 +1,67 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { promises as fs } from 'fs';
+import path from 'path';
+
+const manuals = [
+  {
+    id: '1',
+    filename: 'company-overview.pdf',
+    title: 'Company Overview & Organization Chart'
+  },
+  {
+    id: '2',
+    filename: 'RCmanual.pdf',
+    title: 'RingCentral Communication System Manual'
+  },
+  {
+    id: '3',
+    filename: 'projectpricingsum.pdf',
+    title: 'Project Pricing Summary & Master Page Tool'
+  }
+];
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: { id: string } }
 ) {
   try {
-    const { id } = await params;
-    
-    // 실제 구현에서는 데이터베이스에서 메뉴얼 정보를 가져옴
-    const manualData = {
-      '1': {
-        title: '제품 사용자 매뉴얼',
-        pdfUrl: '/manuals/product-manual.pdf'
-      },
-      '2': {
-        title: '설치 및 설정 가이드',
-        pdfUrl: '/manuals/installation-guide.pdf'
-      },
-      '3': {
-        title: '고급 기능 활용법',
-        pdfUrl: '/manuals/advanced-features.pdf'
-      },
-      '4': {
-        title: '문제 해결 가이드',
-        pdfUrl: '/manuals/troubleshooting.pdf'
-      },
-      '5': {
-        title: 'API 개발자 문서',
-        pdfUrl: '/manuals/api-documentation.pdf'
-      },
-      '6': {
-        title: '보안 가이드라인',
-        pdfUrl: '/manuals/security-guidelines.pdf'
-      }
-    };
-
-    const manual = manualData[id as keyof typeof manualData];
+    const manualId = params.id;
+    const manual = manuals.find(m => m.id === manualId);
     
     if (!manual) {
       return NextResponse.json(
-        { error: '메뉴얼을 찾을 수 없습니다.' },
+        { error: 'Manual not found' },
         { status: 404 }
       );
     }
 
-    // 실제 구현에서는 PDF 파일을 생성하거나 저장된 파일을 반환
-    // 여기서는 샘플 응답을 반환
-    return NextResponse.json({
-      success: true,
-      data: {
-        id,
-        title: manual.title,
-        downloadUrl: manual.pdfUrl,
-        message: 'PDF 다운로드가 준비되었습니다.'
-      }
-    });
+    const filePath = path.join(process.cwd(), 'public', 'manuals', manual.filename);
+    
+    // Check if file exists
+    try {
+      await fs.access(filePath);
+    } catch (error) {
+      return NextResponse.json(
+        { error: 'PDF file not found' },
+        { status: 404 }
+      );
+    }
 
+    // Read the file
+    const fileBuffer = await fs.readFile(filePath);
+    
+    // Return the file with proper headers
+    return new NextResponse(fileBuffer, {
+      headers: {
+        'Content-Type': 'application/pdf',
+        'Content-Disposition': `attachment; filename="${manual.title}.pdf"`,
+        'Content-Length': fileBuffer.length.toString(),
+      },
+    });
   } catch (error) {
-    console.error('PDF 다운로드 오류:', error);
+    console.error('Download error:', error);
     return NextResponse.json(
-      { error: 'PDF 다운로드 중 오류가 발생했습니다.' },
+      { error: 'Internal server error' },
       { status: 500 }
     );
   }
