@@ -52,7 +52,7 @@ export async function GET(
     const fileBuffer = await fs.readFile(filePath);
     
     // Return the file with proper headers
-    return new NextResponse(fileBuffer, {
+    return new NextResponse(fileBuffer as Buffer, {
       headers: {
         'Content-Type': 'application/pdf',
         'Content-Disposition': `attachment; filename="${manual.title}.pdf"`,
