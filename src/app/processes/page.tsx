@@ -1,6 +1,5 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { 
   Play, 
   CheckCircle, 
@@ -8,7 +7,6 @@ import {
   Target, 
   Award, 
   TrendingUp,
-  Plus,
   Star,
   Zap,
   Shield,
@@ -469,7 +467,7 @@ export default function ProcessesPage() {
         <section className="px-4 sm:px-6 lg:px-8 pb-20">
           <div className="max-w-7xl mx-auto">
             <div className="space-y-12">
-              {processFlows.map((flow, flowIndex) => (
+              {processFlows.map((flow) => (
                 <div
                   key={flow.id}
                   className="bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20 hover:border-purple-400/30 transition-all duration-300"
@@ -509,7 +507,7 @@ export default function ProcessesPage() {
                     <div className="absolute top-1/2 left-0 right-0 h-0.5 bg-gradient-to-r from-purple-500/20 to-indigo-500/20 -translate-y-1/2 hidden lg:block"></div>
                     
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-8 gap-4 relative z-10">
-                      {flow.nodes.map((node, nodeIndex) => (
+                      {flow.nodes.map((node) => (
                         <div
                           key={node.id}
                           className="group"

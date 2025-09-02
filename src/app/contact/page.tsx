@@ -7,7 +7,6 @@ import {
   Mail,
   Wrench,
   MessageSquare,
-  Users,
   Shield,
   Clock,
   MapPin,
@@ -223,7 +222,7 @@ export default function ContactPage() {
                   </div>
                   <h3 className="text-xl font-bold text-white mb-3">Emergency Support</h3>
                   <p className="text-gray-300 text-sm leading-relaxed">
-                    For urgent technical issues affecting operations, please call directly and mention "Emergency" for priority support.
+                    For urgent technical issues affecting operations, please call directly and mention &quot;Emergency&quot; for priority support.
                   </p>
                 </div>
               </div>
@@ -243,7 +242,7 @@ export default function ContactPage() {
                 </div>
                 <p className="text-gray-300 mb-4">
                   If you need additional assistance or have questions about our services, 
-                  don't hesitate to reach out to our team.
+                  don&apos;t hesitate to reach out to our team.
                 </p>
                 <div className="flex flex-wrap justify-center gap-4">
                   <a 

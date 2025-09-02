@@ -8,7 +8,6 @@ import {
   Target, 
   Award, 
   TrendingUp,
-  ArrowRight,
   Plus,
   Star,
   Zap,

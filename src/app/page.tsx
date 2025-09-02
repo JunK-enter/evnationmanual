@@ -198,7 +198,7 @@ export default function Home() {
                     </div>
                     <h3 className="text-2xl font-bold text-white mb-4">Success Processes</h3>
                     <p className="text-gray-300 text-lg mb-6 leading-relaxed">
-                      Step-by-step workflows that drive EVnation's success in EV charger installation.
+                      Step-by-step workflows that drive EVnation&apos;s success in EV charger installation.
                     </p>
                     <div className="flex items-center justify-between">
                       <span className="text-purple-300 font-medium">5 Processes</span>
@@ -248,7 +248,7 @@ export default function Home() {
                     </div>
                     <h3 className="text-3xl font-bold text-white mb-4">Contact & Support</h3>
                     <p className="text-gray-300 text-lg mb-6 leading-relaxed">
-                      Get help, ask questions, or provide feedback to our team. We're here to support you.
+                      Get help, ask questions, or provide feedback to our team. We&apos;re here to support you.
                     </p>
                     <div className="flex items-center justify-between">
                       <span className="text-pink-300 font-medium">Get Help</span>

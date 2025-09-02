@@ -10,9 +10,7 @@ import {
   Heart, 
   Target, 
   Award,
-  CheckCircle,
-  AlertCircle,
-  Info
+  CheckCircle
 } from 'lucide-react';
 
 interface EtiquetteItem {
