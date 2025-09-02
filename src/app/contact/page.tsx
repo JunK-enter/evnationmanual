@@ -99,7 +99,7 @@ export default function ContactPage() {
                   Contact & Support
                 </span>
                 <br />
-                <span className="text-white">We're Here to Help</span>
+                <span className="text-white">We&apos;re Here to Help</span>
               </h2>
               <p className="text-xl md:text-2xl text-blue-100 max-w-4xl mx-auto leading-relaxed">
                 Need assistance? Our dedicated team is ready to support you with any questions or technical issues.
