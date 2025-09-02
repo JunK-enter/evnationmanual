@@ -3,191 +3,120 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { 
-  ExternalLink, 
-  Search, 
-  Filter, 
-  Clock, 
-  Settings,
+  Calculator, 
+  Settings, 
+  DollarSign, 
+  Globe, 
+  ArrowLeft,
+  ExternalLink,
   CheckCircle,
-  Calculator,
-  DollarSign,
-  Globe,
-  ArrowRight,
-  Home
+  Star
 } from 'lucide-react';
 import Link from 'next/link';
 
 interface Program {
   id: string;
-  name: string;
-  link: string;
+  title: string;
   description: string;
+  url: string;
+  status: string;
+  icon: React.ReactNode;
   category: string;
+  features: string[];
   lastUpdated: string;
-  status: 'active' | 'maintenance' | 'beta';
-  icon?: React.ReactNode;
-  features?: string[];
 }
 
 const programs: Program[] = [
   {
     id: '1',
-    name: 'Electrum to PipeDrive',
-    link: 'https://electransform.onrender.com/',
-    description: 'Integration tool for connecting Electrum data with Pipedrive CRM system.',
+    title: 'Electrum to Pipedrive Integration',
+    description: 'Integration tool for connecting Electrum data with Pipedrive CRM system. Streamlines data flow between electrical project management and customer relationship management.',
+    url: 'https://electransform.onrender.com/',
+    status: 'Active',
+    icon: <Calculator className="w-5 h-5 text-white" />,
     category: 'Integration',
-    lastUpdated: '2024-01-15',
-    status: 'active',
-    icon: <Calculator className="w-6 h-6" />,
-    features: [
-      'Data synchronization',
-      'Lead management',
-      'Automated workflows',
-      'Real-time updates'
-    ]
+    features: ['Data Synchronization', 'CRM Integration', 'Project Tracking', 'Customer Management'],
+    lastUpdated: '2024-01-20'
   },
   {
     id: '2',
-    name: 'Load Calculator',
-    link: 'https://evnation-load-calculator.vercel.app/',
-    description: 'Advanced electrical load calculation tool for EV charger installations.',
+    title: 'Load Calculator',
+    description: 'Advanced electrical load calculation tool for EV charger installations. Provides accurate power requirements and system specifications.',
+    url: 'https://evnation-load-calculator.vercel.app/',
+    status: 'Active',
+    icon: <Calculator className="w-5 h-5 text-purple-400" />,
     category: 'Calculation',
-    lastUpdated: '2024-01-12',
-    status: 'active',
-    icon: <Calculator className="w-8 h-8" />,
-    features: [
-      'Panel capacity analysis',
-      'Load balancing',
-      'Safety calculations',
-      'Permit requirements'
-    ]
+    features: ['Load Analysis', 'Power Requirements', 'System Specifications', 'Safety Compliance'],
+    lastUpdated: '2024-01-25'
   },
   {
     id: '3',
-    name: 'EVnation Optional Calculator',
-    link: 'https://evnation-optional-calculator.vercel.app/',
-    description: 'Optional features and add-ons calculator for EV charger installations.',
+    title: 'Optional Calculator',
+    description: 'Optional features and add-ons calculator for EV charger installations. Helps determine additional costs and features for projects.',
+    url: 'https://evnation-optional-calculator.vercel.app/',
+    status: 'Active',
+    icon: <Settings className="w-5 h-5 text-orange-400" />,
     category: 'Calculation',
-    lastUpdated: '2024-01-10',
-    status: 'active',
-    icon: <Settings className="w-8 h-8" />,
-    features: [
-      'Add-on pricing',
-      'Feature comparison',
-      'Custom configurations',
-      'Quote generation'
-    ]
+    features: ['Feature Selection', 'Cost Calculation', 'Add-on Management', 'Project Customization'],
+    lastUpdated: '2024-01-25'
   },
   {
     id: '4',
-    name: 'Project Pricing Summary Page',
-    link: 'https://evnation-master.vercel.app/',
-    description: 'Comprehensive project pricing and summary dashboard for all installations.',
+    title: 'Project Pricing Summary',
+    description: 'Comprehensive project pricing and summary dashboard for all installations. Central hub for project cost management and reporting.',
+    url: 'https://evnation-master.vercel.app/',
+    status: 'Active',
+    icon: <DollarSign className="w-5 h-5 text-emerald-400" />,
     category: 'Management',
-    lastUpdated: '2024-01-08',
-    status: 'active',
-    icon: <DollarSign className="w-8 h-8" />,
-    features: [
-      'Project tracking',
-      'Cost analysis',
-      'Profit margins',
-      'Client summaries'
-    ]
+    features: ['Cost Management', 'Project Tracking', 'Reporting Dashboard', 'Client Proposals'],
+    lastUpdated: '2024-01-30'
   },
   {
     id: '5',
-    name: 'EVnation Main Website',
-    link: 'https://evnation.us/',
-    description: 'Official EVnation website with comprehensive information about EV charger and solar installation services.',
+    title: 'EVnation Main Website',
+    description: 'Official EVnation website with comprehensive information about services, company details, and contact information.',
+    url: 'https://evnation.us/',
+    status: 'Active',
+    icon: <Globe className="w-5 h-5 text-indigo-400" />,
     category: 'Information',
-    lastUpdated: '2024-01-20',
-    status: 'active',
-    icon: <Globe className="w-8 h-8" />,
-    features: [
-      'Company information',
-      'Service details',
-      'Contact information',
-      'Quote requests'
-    ]
+    features: ['Service Information', 'Company Details', 'Contact Information', 'Portfolio Showcase'],
+    lastUpdated: '2024-01-15'
   }
 ];
 
 const categories = ['All', 'Integration', 'Calculation', 'Management', 'Information'];
 
 export default function ProgramsPage() {
-  const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
-  const [sortBy, setSortBy] = useState('name');
 
   const filteredPrograms = programs.filter(program => {
-    const matchesSearch = program.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         program.description.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCategory = selectedCategory === 'All' || program.category === selectedCategory;
-    return matchesSearch && matchesCategory;
+    return selectedCategory === 'All' || program.category === selectedCategory;
   });
-
-  const sortedPrograms = [...filteredPrograms].sort((a, b) => {
-    switch (sortBy) {
-      case 'name':
-        return a.name.localeCompare(b.name);
-      case 'category':
-        return a.category.localeCompare(b.category);
-      case 'updated':
-        return new Date(b.lastUpdated).getTime() - new Date(a.lastUpdated).getTime();
-      default:
-        return 0;
-    }
-  });
-
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'active':
-        return 'bg-green-500';
-      case 'maintenance':
-        return 'bg-yellow-500';
-      case 'beta':
-        return 'bg-blue-500';
-      default:
-        return 'bg-gray-500';
-    }
-  };
-
-  const getStatusText = (status: string) => {
-    switch (status) {
-      case 'active':
-        return 'Active';
-      case 'maintenance':
-        return 'Maintenance';
-      case 'beta':
-        return 'Beta';
-      default:
-        return 'Unknown';
-    }
-  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-emerald-900">
       {/* Header */}
       <header className="bg-white/10 backdrop-blur-md border-b border-white/20 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
+          <div className="flex justify-between items-center h-20">
+            <Link href="/" className="flex items-center space-x-4 group">
+              <div className="relative">
+                <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-emerald-500 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+                  <ArrowLeft className="w-7 h-7 text-white" />
+                </div>
+              </div>
+              <div>
+                <h1 className="text-2xl font-bold text-white group-hover:text-blue-300 transition-colors">Back to Home</h1>
+              </div>
+            </Link>
+            
             <div className="flex items-center space-x-4">
-              <Link 
-                href="/"
-                className="flex items-center space-x-2 text-white hover:text-blue-300 transition-colors"
-              >
-                <Home className="w-5 h-5" />
-                <span>Home</span>
-              </Link>
-              <div className="w-px h-6 bg-white/20"></div>
-              <div className="flex items-center space-x-3">
-                <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-emerald-500 rounded-lg flex items-center justify-center">
-                  <Globe className="w-5 h-5 text-white" />
-                </div>
-                <div>
-                  <h1 className="text-lg font-bold text-white">EVnation Program Reference</h1>
-                  <p className="text-blue-200 text-sm">Essential tools and applications</p>
-                </div>
+              <div className="w-12 h-12 bg-gradient-to-r from-orange-500 to-red-600 rounded-xl flex items-center justify-center shadow-lg">
+                <Globe className="w-7 h-7 text-white" />
+              </div>
+              <div>
+                <h1 className="text-2xl font-bold text-white">Programs & Tools</h1>
+                <p className="text-orange-200 text-sm">Essential Applications</p>
               </div>
             </div>
           </div>
@@ -196,203 +125,220 @@ export default function ProgramsPage() {
 
       {/* Main Content */}
       <main className="relative z-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          {/* Hero Section */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-12"
-          >
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              EVnation Program Reference
-            </h1>
-            <p className="text-xl text-blue-200 max-w-3xl mx-auto">
-              Access all essential EVnation tools and applications for efficient EV charger installation management.
-            </p>
-          </motion.div>
-
-          {/* Search and Filter Section */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="bg-white/10 backdrop-blur-md rounded-2xl p-6 mb-8 border border-white/20"
-          >
-            <div className="grid md:grid-cols-3 gap-4">
-              {/* Search */}
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                <input
-                  type="text"
-                  placeholder="Search programs..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-              </div>
-
-              {/* Category Filter */}
-              <div className="relative">
-                <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                <select
-                  value={selectedCategory}
-                  onChange={(e) => setSelectedCategory(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none"
-                >
-                  {categories.map(category => (
-                    <option key={category} value={category} className="bg-gray-800 text-white">
-                      {category}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              {/* Sort */}
-              <div className="relative">
-                <Clock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                <select
-                  value={sortBy}
-                  onChange={(e) => setSortBy(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none"
-                >
-                  <option value="name" className="bg-gray-800 text-white">Sort by Name</option>
-                  <option value="category" className="bg-gray-800 text-white">Sort by Category</option>
-                  <option value="updated" className="bg-gray-800 text-white">Sort by Updated</option>
-                </select>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Programs Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {sortedPrograms.map((program, index) => (
-              <motion.div
-                key={program.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="bg-white/10 backdrop-blur-md rounded-2xl overflow-hidden border border-white/20 hover:border-white/40 transition-all duration-300 hover:transform hover:scale-105"
-              >
-                {/* Program Header */}
-                <div className="bg-gradient-to-r from-blue-500 to-emerald-600 p-6">
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
-                      {program.icon}
-                    </div>
-                    <div className={`w-3 h-3 rounded-full ${getStatusColor(program.status)}`} title={getStatusText(program.status)}></div>
-                  </div>
-                  <h3 className="text-xl font-bold text-white mb-2">{program.name}</h3>
-                  <p className="text-blue-100 text-sm">{program.description}</p>
-                </div>
-
-                {/* Program Content */}
-                <div className="p-6">
-                  {/* Features */}
-                  {program.features && (
-                    <div className="mb-4">
-                      <h4 className="text-sm font-semibold text-blue-300 mb-2">Key Features:</h4>
-                      <ul className="space-y-1">
-                        {program.features.map((feature, idx) => (
-                          <li key={idx} className="text-sm text-gray-300 flex items-center space-x-2">
-                            <CheckCircle className="w-3 h-3 text-green-400 flex-shrink-0" />
-                            <span>{feature}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-
-                  {/* Program Info */}
-                  <div className="space-y-2 mb-6">
-                    <div className="flex items-center justify-between text-sm">
-                      <span className="text-gray-400">Category:</span>
-                      <span className="text-white font-medium">{program.category}</span>
-                    </div>
-                    <div className="flex items-center justify-between text-sm">
-                      <span className="text-gray-400">Updated:</span>
-                      <span className="text-white">{new Date(program.lastUpdated).toLocaleDateString()}</span>
-                    </div>
-                    <div className="flex items-center justify-between text-sm">
-                      <span className="text-gray-400">Status:</span>
-                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                        program.status === 'active' ? 'bg-green-500/20 text-green-300' :
-                        program.status === 'maintenance' ? 'bg-yellow-500/20 text-yellow-300' :
-                        'bg-blue-500/20 text-blue-300'
-                      }`}>
-                        {getStatusText(program.status)}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Action Button */}
-                  <a
-                    href={program.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-full flex items-center justify-center space-x-2 px-4 py-3 bg-gradient-to-r from-blue-500 to-emerald-600 text-white font-medium rounded-xl hover:from-blue-600 hover:to-emerald-700 transition-all duration-300"
-                  >
-                    <ExternalLink className="w-4 h-4" />
-                    <span>Access Program</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </a>
-                </div>
-              </motion.div>
-            ))}
+        {/* Page Header */}
+        <section className="pt-20 pb-16 px-4 sm:px-6 lg:px-8">
+          <div className="max-w-7xl mx-auto text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+            >
+              <h2 className="text-5xl md:text-6xl font-bold text-white mb-6">
+                <span className="bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text text-transparent">
+                  Programs &
+                </span>
+                <br />
+                <span className="text-white">Tools</span>
+              </h2>
+              <p className="text-xl md:text-2xl text-blue-100 max-w-4xl mx-auto leading-relaxed">
+                Access all essential EVnation tools and applications for efficient EV charger installation management.
+                <br className="hidden md:block" />
+                Streamline your workflow with our integrated solutions.
+              </p>
+            </motion.div>
           </div>
+        </section>
 
-          {/* No Results */}
-          {sortedPrograms.length === 0 && (
+        {/* Category Filter */}
+        <section className="px-4 sm:px-6 lg:px-8 mb-16">
+          <div className="max-w-4xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20"
+            >
+              <div className="flex flex-wrap justify-center gap-4">
+                {categories.map((category) => (
+                  <button
+                    key={category}
+                    onClick={() => setSelectedCategory(category)}
+                    className={`px-6 py-3 rounded-2xl font-medium transition-all duration-300 ${
+                      selectedCategory === category
+                        ? 'bg-gradient-to-r from-orange-500 to-red-600 text-white shadow-lg'
+                        : 'bg-white/10 text-gray-300 hover:bg-white/20 hover:text-white'
+                    }`}
+                  >
+                    {category}
+                  </button>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Programs Grid */}
+        <section className="px-4 sm:px-6 lg:px-8 pb-20">
+          <div className="max-w-7xl mx-auto">
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="text-center py-12"
+              transition={{ delay: 0.3 }}
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
             >
-              <div className="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Search className="w-8 h-8 text-gray-400" />
-              </div>
-              <h3 className="text-xl font-semibold text-white mb-2">No programs found</h3>
-              <p className="text-gray-400">Try adjusting your search or filter criteria.</p>
-            </motion.div>
-          )}
+              {filteredPrograms.map((program, index) => (
+                <motion.div
+                  key={program.id}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  whileHover={{ y: -8 }}
+                  className="group"
+                >
+                  <div className="bg-white/10 backdrop-blur-md rounded-3xl p-6 border border-white/20 hover:border-orange-400/50 transition-all duration-300 h-full shadow-xl hover:shadow-2xl">
+                    {/* Header */}
+                    <div className="flex items-start justify-between mb-4">
+                      <div className="w-16 h-16 bg-gradient-to-r from-orange-500 to-red-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                        {program.icon}
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <span className="px-3 py-1 bg-green-500/20 text-green-300 text-xs rounded-full border border-green-500/30">
+                          {program.status}
+                        </span>
+                        <CheckCircle className="w-4 h-4 text-green-400" />
+                      </div>
+                    </div>
 
-          {/* Quick Stats */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="mt-12 grid md:grid-cols-4 gap-6"
-          >
-            <div className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20 text-center">
-              <div className="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center mx-auto mb-3">
-                <Calculator className="w-6 h-6 text-blue-400" />
+                    {/* Content */}
+                    <h3 className="text-xl font-bold text-white mb-3 group-hover:text-orange-300 transition-colors line-clamp-2 leading-tight">
+                      {program.title}
+                    </h3>
+                    
+                    <p className="text-gray-300 text-sm mb-4 leading-relaxed line-clamp-3">
+                      {program.description}
+                    </p>
+
+                    {/* Category Badge */}
+                    <div className="mb-4">
+                      <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-orange-500/20 text-orange-300 border border-orange-500/30">
+                        {program.category}
+                      </span>
+                    </div>
+
+                    {/* Features */}
+                    <div className="mb-6">
+                      <h4 className="text-xs font-semibold text-orange-300 mb-2 uppercase tracking-wide">Key Features</h4>
+                      <div className="flex flex-wrap gap-1">
+                        {program.features.slice(0, 3).map((feature, index) => (
+                          <span key={index} className="px-2 py-1 bg-orange-500/20 text-orange-200 text-xs rounded-md border border-orange-500/30">
+                            {feature}
+                          </span>
+                        ))}
+                        {program.features.length > 3 && (
+                          <span className="px-2 py-1 bg-gray-500/20 text-gray-300 text-xs rounded-md">
+                            +{program.features.length - 3} more
+                          </span>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Footer */}
+                    <div className="mt-auto">
+                      <div className="flex items-center justify-between mb-4 text-xs text-gray-400">
+                        <span>Updated: {program.lastUpdated}</span>
+                        <div className="flex items-center space-x-1">
+                          <Star className="w-3 h-3 text-yellow-400 fill-current" />
+                          <span>Active</span>
+                        </div>
+                      </div>
+                      
+                      <a 
+                        href={program.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-full flex items-center justify-center space-x-2 px-4 py-3 bg-gradient-to-r from-orange-500 to-red-600 text-white font-medium rounded-xl hover:from-orange-600 hover:to-red-700 transition-all duration-300 transform hover:scale-105 group"
+                      >
+                        <ExternalLink className="w-4 h-4" />
+                        <span>Open Tool</span>
+                      </a>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+
+            {/* Empty State */}
+            {filteredPrograms.length === 0 && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="text-center py-20"
+              >
+                <div className="bg-white/10 backdrop-blur-md rounded-3xl p-12 max-w-md mx-auto border border-white/20">
+                  <Globe className="w-20 h-20 text-gray-400 mx-auto mb-6" />
+                  <h3 className="text-2xl font-bold text-white mb-3">
+                    No tools found
+                  </h3>
+                  <p className="text-gray-300 mb-6">
+                    Try selecting a different category.
+                  </p>
+                  <button
+                    onClick={() => setSelectedCategory('All')}
+                    className="px-6 py-3 bg-gradient-to-r from-orange-500 to-red-600 text-white font-medium rounded-xl hover:from-orange-600 hover:to-red-700 transition-all duration-300"
+                  >
+                    View All Tools
+                  </button>
+                </div>
+              </motion.div>
+            )}
+          </div>
+        </section>
+
+        {/* Summary Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="px-4 sm:px-6 lg:px-8 pb-20"
+        >
+          <div className="max-w-4xl mx-auto">
+            <div className="bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20 text-center">
+              <h3 className="text-3xl font-bold text-white mb-6">
+                Integrated Workflow Solutions
+              </h3>
+              <p className="text-blue-100 text-lg mb-8 leading-relaxed">
+                Our tools work together seamlessly to provide a complete solution for EV charger installation projects. 
+                From initial calculations to final project management, everything you need is integrated and accessible.
+              </p>
+              
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="text-center">
+                  <div className="w-16 h-16 bg-gradient-to-r from-orange-500 to-red-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <CheckCircle className="w-8 h-8 text-white" />
+                  </div>
+                  <h4 className="text-xl font-bold text-white mb-2">Seamless Integration</h4>
+                  <p className="text-gray-300 text-sm">All tools work together to provide a unified experience.</p>
+                </div>
+                
+                <div className="text-center">
+                  <div className="w-16 h-16 bg-gradient-to-r from-red-500 to-pink-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <Star className="w-8 h-8 text-white" />
+                  </div>
+                  <h4 className="text-xl font-bold text-white mb-2">Professional Quality</h4>
+                  <p className="text-gray-300 text-sm">Enterprise-grade tools designed for professional use.</p>
+                </div>
+                
+                <div className="text-center">
+                  <div className="w-16 h-16 bg-gradient-to-r from-pink-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <Globe className="w-8 h-8 text-white" />
+                  </div>
+                  <h4 className="text-xl font-bold text-white mb-2">Always Accessible</h4>
+                  <p className="text-gray-300 text-sm">Cloud-based tools available anywhere, anytime.</p>
+                </div>
               </div>
-              <h3 className="text-2xl font-bold text-white mb-1">{programs.length}</h3>
-              <p className="text-gray-400 text-sm">Total Programs</p>
             </div>
-            <div className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20 text-center">
-              <div className="w-12 h-12 bg-green-500/20 rounded-xl flex items-center justify-center mx-auto mb-3">
-                <CheckCircle className="w-6 h-6 text-green-400" />
-              </div>
-              <h3 className="text-2xl font-bold text-white mb-1">{programs.filter(p => p.status === 'active').length}</h3>
-              <p className="text-gray-400 text-sm">Active Programs</p>
-            </div>
-            <div className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20 text-center">
-              <div className="w-12 h-12 bg-purple-500/20 rounded-xl flex items-center justify-center mx-auto mb-3">
-                <Calculator className="w-6 h-6 text-purple-400" />
-              </div>
-              <h3 className="text-2xl font-bold text-white mb-1">{programs.filter(p => p.category === 'Calculation').length}</h3>
-              <p className="text-gray-400 text-sm">Calculation Tools</p>
-            </div>
-            <div className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20 text-center">
-              <div className="w-12 h-12 bg-orange-500/20 rounded-xl flex items-center justify-center mx-auto mb-3">
-                <Settings className="w-6 h-6 text-orange-400" />
-              </div>
-              <h3 className="text-2xl font-bold text-white mb-1">{categories.length - 1}</h3>
-              <p className="text-gray-400 text-sm">Categories</p>
-            </div>
-          </motion.div>
-        </div>
+          </div>
+        </motion.div>
       </main>
     </div>
   );
