@@ -11,6 +11,7 @@ import {
   Zap
 } from 'lucide-react';
 import Link from 'next/link';
+import LiveChatBot from '@/components/LiveChatBot';
 
 export default function Home() {
   return (
@@ -261,6 +262,9 @@ export default function Home() {
           </div>
         </section>
       </main>
+      
+      {/* Live Chat Bot */}
+      <LiveChatBot />
     </div>
   );
 }

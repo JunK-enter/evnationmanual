@@ -18,6 +18,7 @@ import {
   FileText
 } from 'lucide-react';
 import Link from 'next/link';
+import LiveChatBot from '@/components/LiveChatBot';
 
 interface Manual {
   id: string;
@@ -44,7 +45,7 @@ const manuals: Manual[] = [
     category: 'Company Info',
     tags: ['Employee', 'Electrician'],
     pages: 25,
-    lastUpdated: '2024-01-15',
+    lastUpdated: '2025-09-08',
     coverImage: '/api/placeholder/300/400',
     pdfUrl: '/manuals/company-overview.pdf',
     rating: 4.9,
@@ -60,7 +61,7 @@ const manuals: Manual[] = [
     category: 'Integration',
     tags: ['Employee'],
     pages: 18,
-    lastUpdated: '2024-01-25',
+    lastUpdated: '2025-09-08',
     coverImage: '/api/placeholder/300/400',
     pdfUrl: '/manuals/RCmanual.pdf',
     rating: 4.9,
@@ -76,7 +77,7 @@ const manuals: Manual[] = [
     category: 'Integration',
     tags: ['Employee'],
     pages: 15,
-    lastUpdated: '2024-01-25',
+    lastUpdated: '2025-09-08',
     coverImage: '/api/placeholder/300/400',
     pdfUrl: '/manuals/projectpricingsum.pdf',
     rating: 4.8,
@@ -84,11 +85,91 @@ const manuals: Manual[] = [
     icon: <FileText className="w-6 h-6 text-white" />,
     keyFeatures: ['Client Information Management', 'Load Calculations', 'Cost Estimation', 'PDF Report Generation', 'Project Tracking', 'Professional Proposals'],
     targetAudience: 'EVnation project managers and sales team'
+  },
+  {
+    id: '4',
+    title: 'Client Advisor $50 Gift Card Process',
+    description: 'Complete process guide for rewarding dealership Client Advisors with $50 Amazon Gift Cards or Zelle payments for successful EV charger installation referrals. Includes verification steps, communication templates, tracking procedures, and payout schedules to maintain strong dealer relationships.',
+    category: 'Process',
+    tags: ['Employee', 'Sales'],
+    pages: 12,
+    lastUpdated: '2025-09-08',
+    coverImage: '/api/placeholder/300/400',
+    pdfUrl: '/manuals/evref.pdf',
+    rating: 4.9,
+    downloads: 150,
+    icon: <Users className="w-6 h-6 text-white" />,
+    keyFeatures: ['Advisor Verification', 'Communication Templates', 'Gift Card Distribution', 'Tracking & Payout', 'Dealer Relationship Management'],
+    targetAudience: 'EVnation sales team and project coordinators'
+  },
+  {
+    id: '5',
+    title: 'Invoicing & Billing Manual',
+    description: 'Comprehensive guide for EVnation\'s invoicing and billing processes including invoice generation, payment tracking, client billing procedures, financial reporting, and accounts receivable management. Essential for maintaining accurate financial records and ensuring timely payments.',
+    category: 'Finance',
+    tags: ['Employee', 'Admin'],
+    pages: 28,
+    lastUpdated: '2025-09-08',
+    coverImage: '/api/placeholder/300/400',
+    pdfUrl: '/manuals/Billing.pdf',
+    rating: 4.8,
+    downloads: 95,
+    icon: <FileText className="w-6 h-6 text-white" />,
+    keyFeatures: ['Invoice Generation', 'Payment Tracking', 'Client Billing', 'Financial Reporting', 'Accounts Receivable', 'Payment Processing'],
+    targetAudience: 'EVnation administrative staff and project managers'
+  },
+  {
+    id: '6',
+    title: 'EVnation Troubleshooting Guide for Home Chargers',
+    description: 'Comprehensive troubleshooting guide for EVnation\'s supported home charger models: Emporia, ChargePoint, and Mercedes-Benz. Includes step-by-step solutions for connection issues, charging problems, app connectivity, Wi-Fi setup, and error message resolution to ensure optimal charger performance.',
+    category: 'Technical',
+    tags: ['Employee', 'Electrician'],
+    pages: 22,
+    lastUpdated: '2025-09-08',
+    coverImage: '/api/placeholder/300/400',
+    pdfUrl: '/manuals/trouble.pdf',
+    rating: 4.9,
+    downloads: 420,
+    icon: <AlertTriangle className="w-6 h-6 text-white" />,
+    keyFeatures: ['Emporia Troubleshooting', 'ChargePoint Troubleshooting', 'Mercedes-Benz Troubleshooting', 'Connection Issues', 'App Connectivity', 'Error Resolution'],
+    targetAudience: 'EVnation technicians and customer support team'
+  },
+  {
+    id: '7',
+    title: 'EVnation Electrician Process Manual',
+    description: 'Complete process manual for EVnation electricians covering certification requirements, insurance compliance, proper photo documentation procedures, and installation standards. Essential guide for maintaining quality installations and ensuring proper documentation for job verification and payment processing.',
+    category: 'Process',
+    tags: ['Employee', 'Electrician'],
+    pages: 18,
+    lastUpdated: '2025-09-08',
+    coverImage: '/api/placeholder/300/400',
+    pdfUrl: '/manuals/electrician.pdf',
+    rating: 4.8,
+    downloads: 180,
+    icon: <Building2 className="w-6 h-6 text-white" />,
+    keyFeatures: ['Electrician Requirements', 'EVITP Certification', 'Insurance Compliance', 'Photo Documentation', 'Installation Standards', 'Quality Control'],
+    targetAudience: 'EVnation certified electricians and installation teams'
+  },
+  {
+    id: '8',
+    title: 'Electrical Panel Upgrade Procedure Manual',
+    description: 'Comprehensive procedure manual for electrical panel upgrades covering utility coordination, permit processes, installation procedures, grounding requirements, and inspection protocols. Applicable to SCE, SDG&E, LADWP, PG&E, RPU, and other AHJ jurisdictions.',
+    category: 'Technical',
+    tags: ['Employee', 'Electrician'],
+    pages: 16,
+    lastUpdated: '2025-09-08',
+    coverImage: '/api/placeholder/300/400',
+    pdfUrl: '/manuals/Electrical Panel Upgrade Procedure Manual.pdf',
+    rating: 4.9,
+    downloads: 95,
+    icon: <AlertTriangle className="w-6 h-6 text-white" />,
+    keyFeatures: ['Utility Coordination', 'Permit Process', 'Panel Installation', 'Grounding Requirements', 'Inspection Protocols', 'Code Compliance'],
+    targetAudience: 'EVnation certified electricians and project managers'
   }
 ];
 
-const categories = ['All', 'Company Info', 'Integration'];
-const tags = ['All', 'Employee', 'Electrician'];
+const categories = ['All', 'Company Info', 'Integration', 'Process', 'Finance', 'Technical'];
+const tags = ['All', 'Employee', 'Electrician', 'Sales', 'Admin'];
 
 export default function ManualsPage() {
   const [selectedCategory, setSelectedCategory] = useState('All');
@@ -187,6 +268,37 @@ export default function ManualsPage() {
           </div>
         </section>
 
+        {/* Statistics */}
+        <section className="px-4 sm:px-6 lg:px-8 mb-16">
+          <div className="max-w-4xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20"
+            >
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div className="text-center">
+                  <div className="text-4xl md:text-5xl font-bold text-white mb-2">8</div>
+                  <div className="text-blue-200 text-sm font-medium">Available Manuals</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-4xl md:text-5xl font-bold text-white mb-2">2,790</div>
+                  <div className="text-blue-200 text-sm font-medium">Total Downloads</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-4xl md:text-5xl font-bold text-white mb-2">4.9</div>
+                  <div className="text-blue-200 text-sm font-medium">Average Rating</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-4xl md:text-5xl font-bold text-white mb-2">8</div>
+                  <div className="text-blue-200 text-sm font-medium">Success Processes</div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
         {/* Search and Filter */}
         <section className="px-4 sm:px-6 lg:px-8 mb-16">
           <div className="max-w-4xl mx-auto">
@@ -256,14 +368,13 @@ export default function ManualsPage() {
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
-                  whileHover={{ y: -8 }}
                   className="group"
                 >
-                  <div className="bg-white/10 backdrop-blur-md rounded-3xl overflow-hidden border border-white/20 hover:border-blue-400/50 transition-all duration-300 h-[780px] flex flex-col shadow-xl hover:shadow-2xl">
+                  <div className="bg-white/10 backdrop-blur-md rounded-3xl overflow-hidden border border-white/20 h-[480px] flex flex-col shadow-xl">
                     {/* Cover Image */}
-                    <div className="relative h-32 bg-gradient-to-br from-blue-500/30 to-emerald-600/30 flex items-center justify-center overflow-hidden flex-shrink-0">
+                    <div className="relative h-24 bg-gradient-to-br from-blue-500/30 to-emerald-600/30 flex items-center justify-center overflow-hidden flex-shrink-0">
                       <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-emerald-600/20"></div>
-                      <div className="text-white group-hover:scale-110 transition-transform duration-300 drop-shadow-lg">
+                      <div className="text-white drop-shadow-lg">
                         {manual.icon}
                       </div>
                       <div className="absolute top-3 right-3">
@@ -275,11 +386,21 @@ export default function ManualsPage() {
                     </div>
                     
                     {/* Content */}
-                    <div className="p-6 flex-1 flex flex-col">
+                    <div className="p-4 flex-1 flex flex-col">
                       {/* Tags Section */}
-                      <div className="flex items-center justify-between mb-4">
+                      <div className="flex items-center justify-between mb-3">
                         <div className="flex flex-wrap gap-1.5">
-                          <span className="px-3 py-1.5 bg-gradient-to-r from-blue-500 to-emerald-600 text-white text-xs font-medium rounded-full">
+                          <span className={`px-3 py-1.5 text-white text-xs font-medium rounded-full ${
+                            manual.category === 'Company Info' 
+                              ? 'bg-gradient-to-r from-blue-500 to-emerald-600'
+                              : manual.category === 'Integration'
+                              ? 'bg-gradient-to-r from-emerald-500 to-blue-600'
+                              : manual.category === 'Process'
+                              ? 'bg-gradient-to-r from-purple-500 to-pink-600'
+                              : manual.category === 'Finance'
+                              ? 'bg-gradient-to-r from-orange-500 to-red-600'
+                              : 'bg-gradient-to-r from-red-500 to-orange-600'
+                          }`}>
                             {manual.category}
                           </span>
                           {manual.tags.map((tag, tagIndex) => (
@@ -288,6 +409,10 @@ export default function ManualsPage() {
                               className={`px-2 py-1 text-xs font-medium rounded-full ${
                                 tag === 'Employee' 
                                   ? 'bg-purple-500/20 text-purple-300 border border-purple-500/30'
+                                  : tag === 'Sales'
+                                  ? 'bg-green-500/20 text-green-300 border border-green-500/30'
+                                  : tag === 'Admin'
+                                  ? 'bg-red-500/20 text-red-300 border border-red-500/30'
                                   : 'bg-orange-500/20 text-orange-300 border border-orange-500/30'
                               }`}
                             >
@@ -300,76 +425,49 @@ export default function ManualsPage() {
                           <span className="text-xs">{manual.pages} pages</span>
                           <span className="text-xs">•</span>
                           <span className="text-xs">
-                            {manual.id === '1' ? '206KB' : manual.id === '2' ? '1.8MB' : '708KB'}
+                            {manual.id === '1' ? '206KB' : manual.id === '2' ? '1.8MB' : manual.id === '3' ? '708KB' : manual.id === '4' ? '156KB' : manual.id === '5' ? '2.1MB' : manual.id === '6' ? '892KB' : manual.id === '7' ? '1.2MB' : '456KB'}
                           </span>
                         </div>
                       </div>
                       
                       {/* Title */}
-                      <h3 className="text-xl font-bold text-white mb-3 group-hover:text-blue-300 transition-colors line-clamp-2 leading-tight">
+                      <h3 className="text-lg font-bold text-white mb-2 leading-tight">
                         {manual.title}
                       </h3>
                       
                       {/* Manual Type Badge */}
-                      <div className="mb-3">
+                      <div className="mb-2">
                         <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-500/20 text-yellow-300 border border-yellow-500/30">
                           <Info className="w-3 h-3 mr-1" />
-                          {manual.category === 'Company Info' ? 'Company Documentation' : 'Technical Guide'}
+                          {manual.category === 'Company Info' ? 'Company Documentation' : manual.category === 'Process' ? 'Process Guide' : manual.category === 'Finance' ? 'Financial Guide' : manual.category === 'Technical' ? 'Troubleshooting Guide' : 'Technical Guide'}
                         </span>
                       </div>
                       
                       {/* Description */}
-                      <p className="text-gray-300 text-sm mb-4 line-clamp-4 leading-relaxed">
+                      <p className="text-gray-300 text-xs mb-3 leading-relaxed line-clamp-2">
                         {manual.description}
                       </p>
                       
                       {/* Key Features */}
                       {manual.keyFeatures && (
-                        <div className="mb-4">
-                          <h4 className="text-xs font-semibold text-blue-300 mb-2 uppercase tracking-wide">Key Features</h4>
+                        <div className="mb-3">
                           <div className="flex flex-wrap gap-1">
-                            {manual.keyFeatures.slice(0, 3).map((feature, index) => (
+                            {manual.keyFeatures.slice(0, 2).map((feature, index) => (
                               <span key={index} className="px-2 py-1 bg-blue-500/20 text-blue-200 text-xs rounded-md border border-blue-500/30">
                                 {feature}
                               </span>
                             ))}
-                            {manual.keyFeatures.length > 3 && (
+                            {manual.keyFeatures.length > 2 && (
                               <span className="px-2 py-1 bg-gray-500/20 text-gray-300 text-xs rounded-md">
-                                +{manual.keyFeatures.length - 3} more
+                                +{manual.keyFeatures.length - 2} more
                               </span>
                             )}
                           </div>
                         </div>
                       )}
                       
-                      {/* Target Audience */}
-                      {manual.targetAudience && (
-                        <div className="mb-4">
-                          <h4 className="text-xs font-semibold text-emerald-300 mb-1 uppercase tracking-wide">Target Audience</h4>
-                          <p className="text-gray-300 text-xs leading-relaxed">{manual.targetAudience}</p>
-                        </div>
-                      )}
-                      
-                      {/* Importance Note */}
-                      <div className="mb-4 p-3 bg-gradient-to-r from-blue-500/10 to-emerald-500/10 rounded-lg border border-blue-500/20">
-                        <div className="flex items-start space-x-2">
-                          <AlertTriangle className="w-4 h-4 text-yellow-400 mt-0.5 flex-shrink-0" />
-                          <div>
-                            <h4 className="text-xs font-semibold text-yellow-300 mb-1">Important Note</h4>
-                            <p className="text-gray-300 text-xs leading-relaxed">
-                              {manual.id === '1' 
-                                ? 'Essential for all team members to understand company structure and policies.'
-                                : manual.id === '2'
-                                ? 'Critical for internal communication and client interaction tracking.'
-                                : 'Vital for project management and professional client proposals.'
-                              }
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                      
                       {/* Stats */}
-                      <div className="flex items-center justify-between mb-4 mt-auto">
+                      <div className="flex items-center justify-between mb-3 mt-auto">
                         <div className="flex items-center space-x-3 text-xs text-gray-400">
                           <div className="flex items-center space-x-1">
                             <Download className="w-3 h-3" />
@@ -380,10 +478,10 @@ export default function ManualsPage() {
                       </div>
                       
                       {/* Buttons */}
-                      <div className="flex space-x-2 mt-auto">
+                      <div className="flex space-x-2 mt-auto pt-3 border-t border-white/10">
                         <button
                           onClick={() => handleDownload(manual.pdfUrl, manual.title, manual.id)}
-                          className="flex-1 flex items-center justify-center space-x-1.5 px-3 py-2.5 bg-gradient-to-r from-blue-500 to-emerald-600 text-white text-sm font-medium rounded-lg hover:from-blue-600 hover:to-emerald-700 transition-all duration-300 transform hover:scale-105"
+                          className="flex-1 flex items-center justify-center space-x-1.5 px-3 py-2.5 bg-gradient-to-r from-blue-500 to-emerald-600 text-white text-xs font-semibold rounded-lg shadow-lg"
                         >
                           <Download className="w-3.5 h-3.5" />
                           <span>Download PDF</span>
@@ -391,7 +489,7 @@ export default function ManualsPage() {
                         
                         <Link 
                           href={`/manual/${manual.id}`}
-                          className="flex-1 flex items-center justify-center space-x-1.5 px-3 py-2.5 border-2 border-white/30 text-white text-sm font-medium rounded-lg hover:border-blue-400 hover:text-blue-300 transition-all duration-300 transform hover:scale-105"
+                          className="flex-1 flex items-center justify-center space-x-1.5 px-3 py-2.5 bg-white/20 backdrop-blur-sm border-2 border-white/40 text-white text-xs font-semibold rounded-lg shadow-lg"
                         >
                           <BookOpen className="w-3.5 h-3.5" />
                           <span>Preview</span>
@@ -434,6 +532,9 @@ export default function ManualsPage() {
           </div>
         </section>
       </main>
+      
+      {/* Live Chat Bot */}
+      <LiveChatBot />
     </div>
   );
 }

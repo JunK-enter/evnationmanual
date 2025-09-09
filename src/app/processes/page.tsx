@@ -14,6 +14,7 @@ import {
   ArrowLeft
 } from 'lucide-react';
 import Link from 'next/link';
+import LiveChatBot from '@/components/LiveChatBot';
 
 interface ProcessNode {
   id: string;
@@ -533,13 +534,13 @@ export default function ProcessesPage() {
                               </div>
 
                               {/* Content */}
-                              <h4 className="text-sm font-bold text-white mb-2 group-hover:text-purple-300 transition-colors line-clamp-2 leading-tight">
-                                {node.title}
-                              </h4>
+                                                             <h4 className="text-sm font-bold text-white mb-2 group-hover:text-purple-300 transition-colors leading-tight">
+                                 {node.title}
+                               </h4>
                               
-                              <p className="text-gray-300 text-xs leading-relaxed line-clamp-3">
-                                {node.description}
-                              </p>
+                                                             <p className="text-gray-300 text-xs leading-relaxed">
+                                 {node.description}
+                               </p>
 
                               {/* Category Badge */}
                               <div className="mt-3">
@@ -605,6 +606,9 @@ export default function ProcessesPage() {
           </div>
         </section>
       </main>
+      
+      {/* Live Chat Bot */}
+      <LiveChatBot />
     </div>
   );
 }

@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useState } from 'react';
 import { 
   Users, 
   Handshake, 
@@ -11,9 +12,12 @@ import {
   Target, 
   Award,
   CheckCircle,
-  ArrowLeft
+  ArrowLeft,
+  Search,
+  X
 } from 'lucide-react';
 import Link from 'next/link';
+import LiveChatBot from '@/components/LiveChatBot';
 
 interface EtiquetteItem {
   id: number;
@@ -111,6 +115,30 @@ const getImportanceColor = (importance: string) => {
 };
 
 export default function EtiquettePage() {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [selectedImportance, setSelectedImportance] = useState<string>('all');
+
+  // Get unique categories and importance levels
+  const categories = ['all', ...Array.from(new Set(etiquetteItems.map(item => item.category)))];
+  const importanceLevels = ['all', ...Array.from(new Set(etiquetteItems.map(item => item.importance)))];
+
+  // Filter items based on search and filters
+  const filteredItems = etiquetteItems.filter(item => {
+    const matchesSearch = item.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         item.description.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCategory = selectedCategory === 'all' || item.category === selectedCategory;
+    const matchesImportance = selectedImportance === 'all' || item.importance === selectedImportance;
+    
+    return matchesSearch && matchesCategory && matchesImportance;
+  });
+
+  const clearFilters = () => {
+    setSearchTerm('');
+    setSelectedCategory('all');
+    setSelectedImportance('all');
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-emerald-900">
       {/* Header */}
@@ -119,12 +147,12 @@ export default function EtiquettePage() {
           <div className="flex justify-between items-center h-20">
             <Link href="/" className="flex items-center space-x-4 group">
               <div className="relative">
-                <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-emerald-500 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+                <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-emerald-500 rounded-xl flex items-center justify-center shadow-lg">
                   <ArrowLeft className="w-7 h-7 text-white" />
                 </div>
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-white group-hover:text-blue-300 transition-colors">Back to Home</h1>
+                <h1 className="text-2xl font-bold text-white">Back to Home</h1>
               </div>
             </Link>
             
@@ -167,20 +195,127 @@ export default function EtiquettePage() {
           </div>
         </section>
 
+        {/* Search and Filter Section */}
+        <section className="px-4 sm:px-6 lg:px-8 mb-12">
+          <div className="max-w-6xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="bg-white/10 backdrop-blur-md rounded-3xl p-6 border border-white/20"
+            >
+              {/* Search Bar */}
+              <div className="relative mb-6">
+                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                <input
+                  type="text"
+                  placeholder="Search guidelines..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="w-full pl-12 pr-4 py-3 bg-white/10 border border-white/20 rounded-2xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+                />
+              </div>
+
+              {/* Filter Buttons */}
+              <div className="flex flex-wrap gap-4 items-center justify-between">
+                <div className="flex flex-wrap gap-3">
+                  {/* Category Filter */}
+                  <div className="flex items-center space-x-2">
+                    <span className="text-white text-sm font-medium">Category:</span>
+                    <div className="flex flex-wrap gap-2">
+                      {categories.map((category) => (
+                        <button
+                          key={category}
+                          onClick={() => setSelectedCategory(category)}
+                          className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                            selectedCategory === category
+                              ? 'bg-emerald-500 text-white'
+                              : 'bg-white/10 text-gray-300 hover:bg-white/20'
+                          }`}
+                        >
+                          {category === 'all' ? 'All' : category.charAt(0).toUpperCase() + category.slice(1)}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Importance Filter */}
+                  <div className="flex items-center space-x-2">
+                    <span className="text-white text-sm font-medium">Importance:</span>
+                    <div className="flex flex-wrap gap-2">
+                      {importanceLevels.map((importance) => (
+                        <button
+                          key={importance}
+                          onClick={() => setSelectedImportance(importance)}
+                          className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                            selectedImportance === importance
+                              ? 'bg-emerald-500 text-white'
+                              : 'bg-white/10 text-gray-300 hover:bg-white/20'
+                          }`}
+                        >
+                          {importance === 'all' ? 'All' : importance === 'high' ? 'Critical' : importance === 'medium' ? 'Important' : 'Standard'}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Clear Filters */}
+                {(searchTerm || selectedCategory !== 'all' || selectedImportance !== 'all') && (
+                  <button
+                    onClick={clearFilters}
+                    className="flex items-center space-x-2 px-4 py-2 bg-red-500/20 text-red-300 border border-red-500/30 rounded-full text-sm font-medium hover:bg-red-500/30 transition-colors"
+                  >
+                    <X className="w-4 h-4" />
+                    <span>Clear Filters</span>
+                  </button>
+                )}
+              </div>
+
+              {/* Results Count */}
+              <div className="mt-4 text-center">
+                <span className="text-gray-300 text-sm">
+                  Showing {filteredItems.length} of {etiquetteItems.length} guidelines
+                </span>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
         {/* Guidelines List */}
         <section className="px-4 sm:px-6 lg:px-8 pb-20">
           <div className="max-w-6xl mx-auto">
             <div className="space-y-6 mb-16">
-              {etiquetteItems.map((item, index) => (
+              {filteredItems.length === 0 ? (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="text-center py-16"
+                >
+                  <div className="w-24 h-24 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <Search className="w-12 h-12 text-gray-400" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-white mb-4">No guidelines found</h3>
+                  <p className="text-gray-300 text-lg mb-6">
+                    Try adjusting your search terms or filters to find what you're looking for.
+                  </p>
+                  <button
+                    onClick={clearFilters}
+                    className="px-6 py-3 bg-emerald-500 text-white rounded-full font-medium hover:bg-emerald-600 transition-colors"
+                  >
+                    Clear All Filters
+                  </button>
+                </motion.div>
+              ) : (
+                filteredItems.map((item, index) => (
                 <motion.div
                   key={item.id}
                   initial={{ opacity: 0, x: -30 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
-                  whileHover={{ x: 8 }}
                   className="group"
                 >
-                  <div className="bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20 hover:border-emerald-400/50 transition-all duration-300 shadow-xl hover:shadow-2xl">
+                  <div className="bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20 shadow-xl">
                     <div className="flex items-start space-x-6">
                       {/* Number Badge */}
                       <div className="flex-shrink-0">
@@ -192,7 +327,7 @@ export default function EtiquettePage() {
                       {/* Content */}
                       <div className="flex-1 min-w-0">
                         <div className="flex items-start justify-between mb-4">
-                          <h3 className="text-2xl font-bold text-white group-hover:text-emerald-300 transition-colors leading-tight">
+                          <h3 className="text-2xl font-bold text-white leading-tight">
                             {item.title}
                           </h3>
                           <span className={`px-4 py-2 rounded-full text-sm font-medium border ml-4 flex-shrink-0 ${getImportanceColor(item.importance)}`}>
@@ -211,7 +346,7 @@ export default function EtiquettePage() {
                           </span>
                           
                           {/* Icon */}
-                          <div className={`w-12 h-12 bg-gradient-to-r ${getCategoryColor(item.category)} rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
+                          <div className={`w-12 h-12 bg-gradient-to-r ${getCategoryColor(item.category)} rounded-xl flex items-center justify-center`}>
                             <div className="text-white">
                               {item.icon}
                             </div>
@@ -221,7 +356,8 @@ export default function EtiquettePage() {
                     </div>
                   </div>
                 </motion.div>
-              ))}
+                ))
+              )}
             </div>
 
             {/* Summary Section */}
@@ -269,6 +405,9 @@ export default function EtiquettePage() {
           </div>
         </section>
       </main>
+      
+      {/* Live Chat Bot */}
+      <LiveChatBot />
     </div>
   );
 }

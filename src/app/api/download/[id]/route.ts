@@ -17,6 +17,31 @@ const manuals = [
     id: '3',
     filename: 'projectpricingsum.pdf',
     title: 'Project Pricing Summary & Master Page Tool'
+  },
+  {
+    id: '4',
+    filename: 'evref.pdf',
+    title: 'Client Advisor $50 Gift Card Process'
+  },
+  {
+    id: '5',
+    filename: 'Billing.pdf',
+    title: 'Invoicing & Billing Manual'
+  },
+  {
+    id: '6',
+    filename: 'trouble.pdf',
+    title: 'EVnation Troubleshooting Guide for Home Chargers'
+  },
+  {
+    id: '7',
+    filename: 'electrician.pdf',
+    title: 'EVnation Electrician Process Manual'
+  },
+  {
+    id: '8',
+    filename: 'Electrical Panel Upgrade Procedure Manual.pdf',
+    title: 'Electrical Panel Upgrade Procedure Manual'
   }
 ];
 

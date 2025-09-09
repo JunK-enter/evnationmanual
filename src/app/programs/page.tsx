@@ -13,6 +13,7 @@ import {
   Star
 } from 'lucide-react';
 import Link from 'next/link';
+import LiveChatBot from '@/components/LiveChatBot';
 
 interface Program {
   id: string;
@@ -210,13 +211,13 @@ export default function ProgramsPage() {
                     </div>
 
                     {/* Content */}
-                    <h3 className="text-xl font-bold text-white mb-3 group-hover:text-orange-300 transition-colors line-clamp-2 leading-tight">
-                      {program.title}
-                    </h3>
+                                         <h3 className="text-xl font-bold text-white mb-3 group-hover:text-orange-300 transition-colors leading-tight">
+                       {program.title}
+                     </h3>
                     
-                    <p className="text-gray-300 text-sm mb-4 leading-relaxed line-clamp-3">
-                      {program.description}
-                    </p>
+                                         <p className="text-gray-300 text-sm mb-4 leading-relaxed">
+                       {program.description}
+                     </p>
 
                     {/* Category Badge */}
                     <div className="mb-4">
@@ -340,6 +341,9 @@ export default function ProgramsPage() {
           </div>
         </motion.div>
       </main>
+      
+      {/* Live Chat Bot */}
+      <LiveChatBot />
     </div>
   );
 }

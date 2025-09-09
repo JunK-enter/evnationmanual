@@ -4,6 +4,12 @@ A comprehensive web application for managing and distributing EVnation's interna
 
 ## 🌟 Features
 
+### 🤖 AI-Powered Live Chat
+- **Intelligent Assistant**: AI-powered chatbot with context-aware responses
+- **OpenAI Integration**: Full OpenAI API support for natural conversations
+- **Fallback System**: Intelligent fallback responses when AI is unavailable
+- **Real-time Support**: Instant help for technical issues, business hours, and services
+
 ### 📚 Manual Management
 - **3 Essential Manuals**: Company Overview, RingCentral System, Project Pricing Summary
 - **Detailed Information**: Each manual includes comprehensive descriptions, key features, and target audience
@@ -84,6 +90,32 @@ A comprehensive web application for managing and distributing EVnation's interna
 npm run build
 npm start
 ```
+
+## 🤖 AI Chatbot Configuration
+
+### OpenAI API Setup
+
+1. **Get OpenAI API Key**
+   - Visit [OpenAI Platform](https://platform.openai.com/)
+   - Create an account and get your API key
+
+2. **Environment Variables**
+   Create a `.env.local` file in the root directory:
+   ```bash
+   OPENAI_API_KEY=your_openai_api_key_here
+   OPENAI_MODEL=gpt-3.5-turbo
+   OPENAI_MAX_TOKENS=500
+   OPENAI_TEMPERATURE=0.7
+   ```
+
+3. **AI Features**
+   - **Smart Responses**: Context-aware answers about EVnation services
+   - **Contact Information**: Automatic routing to appropriate team members
+   - **Process Knowledge**: Detailed information about 5 success processes
+   - **Fallback System**: Intelligent responses when AI is unavailable
+
+### Without OpenAI API
+The chatbot will automatically use intelligent fallback responses based on keyword matching and company knowledge base.
 
 ## 📁 Project Structure
 
