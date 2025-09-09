@@ -90,7 +90,7 @@ export default function LiveChatBot() {
         } else {
           setAiEnabled(false);
         }
-      } catch (err) {
+      } catch {
         setAiEnabled(false);
         console.log('AI API not available, using fallback responses');
       }

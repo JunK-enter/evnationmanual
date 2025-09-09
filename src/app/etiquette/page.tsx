@@ -297,7 +297,7 @@ export default function EtiquettePage() {
                   </div>
                   <h3 className="text-2xl font-bold text-white mb-4">No guidelines found</h3>
                   <p className="text-gray-300 text-lg mb-6">
-                    Try adjusting your search terms or filters to find what you're looking for.
+                    Try adjusting your search terms or filters to find what you&apos;re looking for.
                   </p>
                   <button
                     onClick={clearFilters}
