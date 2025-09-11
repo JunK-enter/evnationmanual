@@ -140,29 +140,29 @@ export default function EtiquettePage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-emerald-900">
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800">
       {/* Header */}
-      <header className="bg-white/10 backdrop-blur-md border-b border-white/20 sticky top-0 z-50">
+      <header className="liquid-glass-header sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
             <Link href="/" className="flex items-center space-x-4 group">
               <div className="relative">
-                <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-emerald-500 rounded-xl flex items-center justify-center shadow-lg">
+                <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-emerald-500 rounded-xl flex items-center justify-center">
                   <ArrowLeft className="w-7 h-7 text-white" />
                 </div>
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-white">Back to Home</h1>
+                <h1 className="text-2xl font-semibold text-white">Back to Home</h1>
               </div>
             </Link>
             
             <div className="flex items-center space-x-4">
-              <div className="w-12 h-12 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-xl flex items-center justify-center shadow-lg">
+              <div className="w-12 h-12 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-xl flex items-center justify-center">
                 <Users className="w-7 h-7 text-white" />
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-white">Workplace Etiquette</h1>
-                <p className="text-emerald-200 text-sm">Professional Guidelines</p>
+                <h1 className="text-2xl font-semibold text-white">Workplace Etiquette</h1>
+                <p className="text-slate-300 text-sm">Professional Guidelines</p>
               </div>
             </div>
           </div>
@@ -179,14 +179,14 @@ export default function EtiquettePage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <h2 className="text-5xl md:text-6xl font-bold text-white mb-6">
+              <h2 className="text-5xl md:text-6xl font-semibold text-white mb-6">
                 <span className="bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent">
                   Workplace Etiquette
                 </span>
                 <br />
-                <span className="text-white">Guidelines</span>
+                <span className="text-slate-200">Guidelines</span>
               </h2>
-              <p className="text-xl md:text-2xl text-blue-100 max-w-4xl mx-auto leading-relaxed">
+              <p className="text-xl md:text-2xl text-slate-300 max-w-4xl mx-auto leading-relaxed">
                 Essential guidelines for maintaining a professional, collaborative, and safe work environment at EVnation.
                 <br className="hidden md:block" />
                 These principles ensure our team operates with excellence and mutual respect.
@@ -202,7 +202,7 @@ export default function EtiquettePage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
-              className="bg-white/10 backdrop-blur-md rounded-3xl p-6 border border-white/20"
+              className="liquid-glass-card rounded-3xl p-6"
             >
               {/* Search Bar */}
               <div className="relative mb-6">
@@ -212,7 +212,7 @@ export default function EtiquettePage() {
                   placeholder="Search guidelines..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-12 pr-4 py-3 bg-white/10 border border-white/20 rounded-2xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+                  className="w-full pl-12 pr-4 py-3 liquid-glass-input rounded-2xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
                 />
               </div>
 
@@ -221,7 +221,7 @@ export default function EtiquettePage() {
                 <div className="flex flex-wrap gap-3">
                   {/* Category Filter */}
                   <div className="flex items-center space-x-2">
-                    <span className="text-white text-sm font-medium">Category:</span>
+                    <span className="text-slate-200 text-sm font-medium">Category:</span>
                     <div className="flex flex-wrap gap-2">
                       {categories.map((category) => (
                         <button
@@ -230,7 +230,7 @@ export default function EtiquettePage() {
                           className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
                             selectedCategory === category
                               ? 'bg-emerald-500 text-white'
-                              : 'bg-white/10 text-gray-300 hover:bg-white/20'
+                              : 'liquid-glass-button text-gray-300 hover:bg-white/20'
                           }`}
                         >
                           {category === 'all' ? 'All' : category.charAt(0).toUpperCase() + category.slice(1)}
@@ -241,7 +241,7 @@ export default function EtiquettePage() {
 
                   {/* Importance Filter */}
                   <div className="flex items-center space-x-2">
-                    <span className="text-white text-sm font-medium">Importance:</span>
+                    <span className="text-slate-200 text-sm font-medium">Importance:</span>
                     <div className="flex flex-wrap gap-2">
                       {importanceLevels.map((importance) => (
                         <button
@@ -250,7 +250,7 @@ export default function EtiquettePage() {
                           className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
                             selectedImportance === importance
                               ? 'bg-emerald-500 text-white'
-                              : 'bg-white/10 text-gray-300 hover:bg-white/20'
+                              : 'liquid-glass-button text-gray-300 hover:bg-white/20'
                           }`}
                         >
                           {importance === 'all' ? 'All' : importance === 'high' ? 'Critical' : importance === 'medium' ? 'Important' : 'Standard'}
@@ -274,10 +274,10 @@ export default function EtiquettePage() {
 
               {/* Results Count */}
               <div className="mt-4 text-center">
-                <span className="text-gray-300 text-sm">
+                <span className="text-slate-300 text-sm">
                   Showing {filteredItems.length} of {etiquetteItems.length} guidelines
                 </span>
-              </div>
+              </div>  
             </motion.div>
           </div>
         </section>
@@ -292,11 +292,11 @@ export default function EtiquettePage() {
                   animate={{ opacity: 1, y: 0 }}
                   className="text-center py-16"
                 >
-                  <div className="w-24 h-24 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <div className="w-24 h-24 liquid-glass rounded-full flex items-center justify-center mx-auto mb-6 backdrop-blur-sm">
                     <Search className="w-12 h-12 text-gray-400" />
                   </div>
-                  <h3 className="text-2xl font-bold text-white mb-4">No guidelines found</h3>
-                  <p className="text-gray-300 text-lg mb-6">
+                  <h3 className="text-2xl font-semibold text-white mb-4">No guidelines found</h3>
+                  <p className="text-slate-300 text-lg mb-6">
                     Try adjusting your search terms or filters to find what you&apos;re looking for.
                   </p>
                   <button
@@ -310,16 +310,16 @@ export default function EtiquettePage() {
                 filteredItems.map((item, index) => (
                 <motion.div
                   key={item.id}
-                  initial={{ opacity: 0, x: -30 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: index * 0.05 }}
                   className="group"
                 >
-                  <div className="bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20 shadow-xl">
+                  <div className="liquid-glass-card rounded-3xl p-8">
                     <div className="flex items-start space-x-6">
                       {/* Number Badge */}
                       <div className="flex-shrink-0">
-                        <div className="w-16 h-16 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-2xl flex items-center justify-center text-white font-bold text-2xl shadow-lg">
+                        <div className="w-16 h-16 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-2xl flex items-center justify-center text-white font-bold text-2xl">
                           {item.id}
                         </div>
                       </div>
@@ -327,7 +327,7 @@ export default function EtiquettePage() {
                       {/* Content */}
                       <div className="flex-1 min-w-0">
                         <div className="flex items-start justify-between mb-4">
-                          <h3 className="text-2xl font-bold text-white leading-tight">
+                          <h3 className="text-2xl font-semibold text-white leading-tight">
                             {item.title}
                           </h3>
                           <span className={`px-4 py-2 rounded-full text-sm font-medium border ml-4 flex-shrink-0 ${getImportanceColor(item.importance)}`}>
@@ -335,18 +335,18 @@ export default function EtiquettePage() {
                           </span>
                         </div>
                         
-                        <p className="text-gray-300 text-lg leading-relaxed mb-4">
+                        <p className="text-slate-300 text-lg leading-relaxed mb-4">
                           {item.description}
                         </p>
 
                         <div className="flex items-center space-x-4">
                           {/* Category Badge */}
-                          <span className={`inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-gradient-to-r ${getCategoryColor(item.category)} bg-opacity-20 text-white border border-current border-opacity-30`}>
+                          <span className={`inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-gradient-to-r ${getCategoryColor(item.category)} bg-opacity-15 text-white border border-current border-opacity-20 backdrop-blur-sm`}>
                             {item.category.charAt(0).toUpperCase() + item.category.slice(1)}
                           </span>
                           
                           {/* Icon */}
-                          <div className={`w-12 h-12 bg-gradient-to-r ${getCategoryColor(item.category)} rounded-xl flex items-center justify-center`}>
+                          <div className={`w-12 h-12 bg-gradient-to-r ${getCategoryColor(item.category)} rounded-xl flex items-center justify-center backdrop-blur-sm`}>
                             <div className="text-white">
                               {item.icon}
                             </div>
@@ -365,38 +365,38 @@ export default function EtiquettePage() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20"
+              className="liquid-glass-card rounded-3xl p-8"
             >
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 {/* Key Principles */}
                 <div className="text-center lg:text-left">
-                  <div className="w-16 h-16 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-2xl flex items-center justify-center mx-auto lg:mx-0 mb-4">
+                  <div className="w-16 h-16 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-2xl flex items-center justify-center mx-auto lg:mx-0 mb-4 backdrop-blur-sm">
                     <CheckCircle className="w-8 h-8 text-white" />
                   </div>
-                  <h3 className="text-xl font-bold text-white mb-3">Key Principles</h3>
-                  <p className="text-gray-300 text-sm leading-relaxed">
+                  <h3 className="text-xl font-semibold text-white mb-3">Key Principles</h3>
+                  <p className="text-slate-300 text-sm leading-relaxed">
                     Our guidelines are built on the foundation of respect, professionalism, and continuous improvement.
                   </p>
                 </div>
 
                 {/* Implementation */}
                 <div className="text-center lg:text-left">
-                  <div className="w-16 h-16 bg-gradient-to-r from-teal-500 to-cyan-600 rounded-2xl flex items-center justify-center mx-auto lg:mx-0 mb-4">
+                  <div className="w-16 h-16 bg-gradient-to-r from-teal-500 to-cyan-600 rounded-2xl flex items-center justify-center mx-auto lg:mx-0 mb-4 backdrop-blur-sm">
                     <Target className="w-8 h-8 text-white" />
                   </div>
-                  <h3 className="text-xl font-bold text-white mb-3">Implementation</h3>
-                  <p className="text-gray-300 text-sm leading-relaxed">
+                  <h3 className="text-xl font-semibold text-white mb-3">Implementation</h3>
+                  <p className="text-slate-300 text-sm leading-relaxed">
                     These guidelines are actively practiced and reinforced through regular team training and feedback.
                   </p>
                 </div>
 
                 {/* Benefits */}
                 <div className="text-center lg:text-left">
-                  <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-indigo-600 rounded-2xl flex items-center justify-center mx-auto lg:mx-0 mb-4">
+                  <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-indigo-600 rounded-2xl flex items-center justify-center mx-auto lg:mx-0 mb-4 backdrop-blur-sm">
                     <Award className="w-8 h-8 text-white" />
                   </div>
-                  <h3 className="text-xl font-bold text-white mb-3">Benefits</h3>
-                  <p className="text-gray-300 text-sm leading-relaxed">
+                  <h3 className="text-xl font-semibold text-white mb-3">Benefits</h3>
+                  <p className="text-slate-300 text-sm leading-relaxed">
                     Creating a positive work environment that enhances productivity, collaboration, and employee satisfaction.
                   </p>
                 </div>

@@ -213,14 +213,14 @@ export default function ManualsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-emerald-900">
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800">
       {/* Header */}
       <header className="bg-white/10 backdrop-blur-md border-b border-white/20 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
             <Link href="/" className="flex items-center space-x-4 group">
               <div className="relative">
-                <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-emerald-500 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+                <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-emerald-500 rounded-xl flex items-center justify-center shadow-lg">
                   <ArrowLeft className="w-7 h-7 text-white" />
                 </div>
               </div>

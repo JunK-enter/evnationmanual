@@ -213,7 +213,7 @@ export default function LiveChatBot() {
       {/* Chat Toggle Button */}
       <motion.button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-6 right-6 w-16 h-16 bg-gradient-to-r from-blue-500 to-emerald-600 rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 z-50 group"
+        className="fixed bottom-6 right-6 w-16 h-16 liquid-glass-button rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 z-50 group"
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
       >
@@ -243,7 +243,7 @@ export default function LiveChatBot() {
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.8, opacity: 0, y: 50 }}
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="absolute bottom-6 right-6 w-96 h-[800px] bg-white rounded-2xl shadow-2xl overflow-hidden"
+              className="absolute bottom-6 right-6 w-96 h-[800px] liquid-glass-card rounded-2xl shadow-2xl overflow-hidden"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Chat Header */}

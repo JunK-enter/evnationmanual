@@ -56,14 +56,14 @@ const getCategoryColor = (category: string) => {
 
 export default function ContactPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-emerald-900">
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800">
       {/* Header */}
       <header className="bg-white/10 backdrop-blur-md border-b border-white/20 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
             <Link href="/" className="flex items-center space-x-4 group">
               <div className="relative">
-                <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-emerald-500 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+                <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-emerald-500 rounded-xl flex items-center justify-center shadow-lg">
                   <ArrowLeft className="w-7 h-7 text-white" />
                 </div>
               </div>
@@ -102,7 +102,7 @@ export default function ContactPage() {
                 <br />
                 <span className="text-white">We&apos;re Here to Help</span>
               </h2>
-              <p className="text-xl md:text-2xl text-blue-100 max-w-4xl mx-auto leading-relaxed">
+              <p className="text-xl md:text-2l text-blue-100 max-w-4xl mx-auto leading-relaxed">
                 Need assistance? Our dedicated team is ready to support you with any questions or technical issues.
                 <br className="hidden md:block" />
                 Choose the right person to contact based on your needs.
@@ -121,13 +121,12 @@ export default function ContactPage() {
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: index * 0.2 }}
-                  whileHover={{ y: -8 }}
                   className="group"
                 >
-                  <div className="bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20 hover:border-pink-400/50 transition-all duration-300 h-full shadow-xl hover:shadow-2xl">
+                  <div className="bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20 hover:border-pink-400/50 transition-all duration-300 h-full shadow-xl">
                     {/* Header */}
                     <div className="flex items-center space-x-6 mb-6">
-                      <div className={`w-20 h-20 bg-gradient-to-r ${getCategoryColor(person.category)} rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
+                      <div className={`w-20 h-20 bg-gradient-to-r ${getCategoryColor(person.category)} rounded-2xl flex items-center justify-center`}>
                         <div className="text-white">
                           {person.icon}
                         </div>
@@ -250,13 +249,13 @@ export default function ContactPage() {
                     href="https://evnation.us" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="px-6 py-3 bg-gradient-to-r from-blue-500 to-emerald-600 text-white font-medium rounded-xl hover:from-blue-600 hover:to-emerald-700 transition-all duration-300 transform hover:scale-105"
+                    className="px-6 py-3 bg-gradient-to-r from-blue-500 to-emerald-600 text-white font-medium rounded-xl hover:from-blue-600 hover:to-emerald-700 transition-all duration-300"
                   >
                     Visit Our Website
                   </a>
                   <Link 
                     href="/"
-                    className="px-6 py-3 border-2 border-white/30 text-white font-medium rounded-xl hover:border-pink-400 hover:text-pink-300 transition-all duration-300 transform hover:scale-105"
+                    className="px-6 py-3 border-2 border-white/30 text-white font-medium rounded-xl hover:border-pink-400 hover:text-pink-300 transition-all duration-300"
                   >
                     Back to Home
                   </Link>

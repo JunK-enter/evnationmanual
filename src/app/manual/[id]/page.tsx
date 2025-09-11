@@ -174,7 +174,7 @@ export default function ManualPage() {
   
   if (!manual) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-emerald-900 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-4xl font-bold text-white mb-4">Manual Not Found</h1>
           <p className="text-blue-200 mb-8">The requested manual could not be found.</p>
@@ -226,7 +226,7 @@ export default function ManualPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-emerald-900">
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800">
       {/* Header */}
       <header className="bg-white/10 backdrop-blur-md border-b border-white/20 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -378,7 +378,7 @@ export default function ManualPage() {
                 
                 <button
                   onClick={handleDownload}
-                  className="flex items-center space-x-2 px-8 py-4 bg-gradient-to-r from-blue-500 to-emerald-600 text-white font-medium rounded-xl hover:from-blue-600 hover:to-emerald-700 transition-all duration-300 transform hover:scale-105 shadow-lg"
+                  className="flex items-center space-x-2 px-8 py-4 bg-gradient-to-r from-blue-500 to-emerald-600 text-white font-medium rounded-xl hover:from-blue-600 hover:to-emerald-700 transition-all duration-300 shadow-lg"
                 >
                   <Download className="w-5 h-5" />
                   <span>Download PDF</span>

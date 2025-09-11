@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { 
   Play, 
   CheckCircle, 
@@ -11,7 +12,8 @@ import {
   Zap,
   Shield,
   Heart,
-  ArrowLeft
+  ArrowLeft,
+  X
 } from 'lucide-react';
 import Link from 'next/link';
 import LiveChatBot from '@/components/LiveChatBot';
@@ -412,15 +414,25 @@ const getDifficultyColor = (difficulty: string) => {
 };
 
 export default function ProcessesPage() {
+  const [selectedProcess, setSelectedProcess] = useState<ProcessFlow | null>(null);
+
+  const openModal = (process: ProcessFlow) => {
+    setSelectedProcess(process);
+  };
+
+  const closeModal = () => {
+    setSelectedProcess(null);
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-emerald-900">
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800">
       {/* Header */}
       <header className="bg-white/10 backdrop-blur-md border-b border-white/20 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
             <Link href="/" className="flex items-center space-x-4 group">
               <div className="relative">
-                <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-emerald-500 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+                <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-emerald-500 rounded-xl flex items-center justify-center shadow-lg">
                   <ArrowLeft className="w-7 h-7 text-white" />
                 </div>
               </div>
@@ -466,146 +478,182 @@ export default function ProcessesPage() {
 
         {/* Process Flows */}
         <section className="px-4 sm:px-6 lg:px-8 pb-20">
-          <div className="max-w-7xl mx-auto">
-            <div className="space-y-12">
+          <div className="max-w-6xl mx-auto">
+            <div className="space-y-4">
               {processFlows.map((flow) => (
                 <div
                   key={flow.id}
-                  className="bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20 hover:border-purple-400/30 transition-all duration-300"
+                  className="liquid-glass-card rounded-2xl p-6 cursor-pointer transition-all duration-300 hover:bg-white/15"
+                  onClick={() => openModal(flow)}
                 >
-                  {/* Flow Header */}
-                  <div className="text-center mb-8">
-                    <div className="flex items-center justify-center space-x-4 mb-6">
-                      <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-indigo-600 rounded-2xl flex items-center justify-center">
-                        <Play className="w-8 h-8 text-white" />
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-4">
+                      <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-emerald-600 rounded-xl flex items-center justify-center">
+                        <Play className="w-6 h-6 text-white" />
                       </div>
-                      <div className="text-left">
-                        <h3 className="text-2xl font-bold text-white">{flow.title}</h3>
-                        <p className="text-purple-200">{flow.description}</p>
+                      <div>
+                        <h3 className="text-xl font-semibold text-white mb-1">{flow.title}</h3>
+                        <p className="text-slate-300 text-sm">{flow.description}</p>
                       </div>
                     </div>
                     
-                    {/* Flow Stats */}
-                    <div className="flex flex-wrap justify-center items-center gap-4 text-sm">
-                      <span className="px-3 py-1 bg-blue-500/20 text-blue-300 rounded-full border border-blue-500/30">
-                        {flow.totalSteps} Steps
-                      </span>
-                      <span className="px-3 py-1 bg-emerald-500/20 text-emerald-300 rounded-full border border-emerald-500/30">
-                        {flow.estimatedTime}
-                      </span>
-                      <span className={`px-3 py-1 rounded-full border ${getDifficultyColor(flow.difficulty)}`}>
-                        {flow.difficulty.charAt(0).toUpperCase() + flow.difficulty.slice(1)}
-                      </span>
-                      <span className="px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full border border-purple-500/30">
-                        {flow.successRate}% Success Rate
-                      </span>
+                    <div className="flex items-center space-x-4">
+                      {/* Flow Stats */}
+                      <div className="flex items-center space-x-3 text-sm">
+                        <span className="px-3 py-1 bg-blue-500/20 text-blue-300 rounded-lg">
+                          {flow.totalSteps} Steps
+                        </span>
+                        <span className="px-3 py-1 bg-emerald-500/20 text-emerald-300 rounded-lg">
+                          {flow.estimatedTime}
+                        </span>
+                        <span className={`px-3 py-1 rounded-lg text-xs font-medium ${getDifficultyColor(flow.difficulty)}`}>
+                          {flow.difficulty.charAt(0).toUpperCase() + flow.difficulty.slice(1)}
+                        </span>
+                        <span className="px-3 py-1 bg-purple-500/20 text-purple-300 rounded-lg">
+                          {flow.successRate}% Success
+                        </span>
+                      </div>
+                      
+                      {/* View Button */}
+                      <button className="px-4 py-2 bg-gradient-to-r from-blue-500 to-emerald-600 text-white font-medium rounded-lg hover:from-blue-600 hover:to-emerald-700 transition-all duration-300">
+                        View Full Process
+                      </button>
                     </div>
-                  </div>
-
-                  {/* Process Nodes */}
-                  <div className="relative">
-                    {/* Connection Lines */}
-                    <div className="absolute top-1/2 left-0 right-0 h-0.5 bg-gradient-to-r from-purple-500/20 to-indigo-500/20 -translate-y-1/2 hidden lg:block"></div>
-                    
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-8 gap-4 relative z-10">
-                      {flow.nodes.map((node) => (
-                        <div
-                          key={node.id}
-                          className="group"
-                        >
-                          <div className="relative">
-                            {/* Node */}
-                            <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/20 hover:border-purple-400/50 transition-all duration-300 hover:shadow-lg">
-                              {/* Step Number */}
-                              <div className="flex items-center justify-between mb-3">
-                                <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${getStatusColor(node.status)}`}>
-                                  {node.step}
-                                </div>
-                                <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(node.status)} bg-opacity-20`}>
-                                  {node.status === 'completed' ? 'Done' : node.status === 'in-progress' ? 'Active' : 'Pending'}
-                                </span>
-                              </div>
-
-                              {/* Icon */}
-                              <div className={`w-12 h-12 bg-gradient-to-r ${getCategoryColor(node.category)} rounded-xl flex items-center justify-center mb-3 group-hover:scale-105 transition-transform duration-200`}>
-                                <div className="text-white">
-                                  {node.icon}
-                                </div>
-                              </div>
-
-                              {/* Content */}
-                                                             <h4 className="text-sm font-bold text-white mb-2 group-hover:text-purple-300 transition-colors leading-tight">
-                                 {node.title}
-                               </h4>
-                              
-                                                             <p className="text-gray-300 text-xs leading-relaxed">
-                                 {node.description}
-                               </p>
-
-                              {/* Category Badge */}
-                              <div className="mt-3">
-                                <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-gradient-to-r ${getCategoryColor(node.category)} bg-opacity-20 text-white border border-current border-opacity-30`}>
-                                  {node.category.charAt(0).toUpperCase() + node.category.slice(1)}
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Flow Actions */}
-                  <div className="flex justify-center mt-8">
-                    <button className="px-6 py-3 bg-gradient-to-r from-purple-500 to-indigo-600 text-white font-medium rounded-xl hover:from-purple-600 hover:to-indigo-700 transition-all duration-300">
-                      View Full Process
-                    </button>
                   </div>
                 </div>
               ))}
             </div>
 
             {/* Summary Section */}
-            <div className="mt-16 bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20 text-center">
-              <div className="max-w-4xl mx-auto">
-                <h3 className="text-3xl font-bold text-white mb-6">
-                  Process-Driven Success
-                </h3>
-                <p className="text-blue-100 text-lg mb-8 leading-relaxed">
-                  Our structured processes ensure consistent quality, efficient execution, and exceptional client outcomes. 
-                  Each workflow is continuously optimized based on real-world performance data and team feedback.
-                </p>
+            <div className="mt-12 liquid-glass-card rounded-2xl p-6 text-center">
+              <h3 className="text-2xl font-semibold text-white mb-4">
+                Process-Driven Success
+              </h3>
+              <p className="text-slate-300 mb-6 max-w-2xl mx-auto">
+                Our structured processes ensure consistent quality, efficient execution, and exceptional client outcomes.
+              </p>
+              
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="text-center">
+                  <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-emerald-600 rounded-xl flex items-center justify-center mx-auto mb-3">
+                    <Target className="w-6 h-6 text-white" />
+                  </div>
+                  <h4 className="text-lg font-semibold text-white mb-2">Structured Approach</h4>
+                  <p className="text-slate-400 text-sm">Clear, step-by-step processes that ensure consistency.</p>
+                </div>
                 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  <div className="text-center">
-                    <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-indigo-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                      <Target className="w-8 h-8 text-white" />
-                    </div>
-                    <h4 className="text-xl font-bold text-white mb-2">Structured Approach</h4>
-                    <p className="text-gray-300 text-sm">Clear, step-by-step processes that eliminate confusion and ensure consistency.</p>
+                <div className="text-center">
+                  <div className="w-12 h-12 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-xl flex items-center justify-center mx-auto mb-3">
+                    <TrendingUp className="w-6 h-6 text-white" />
                   </div>
-                  
-                  <div className="text-center">
-                    <div className="w-16 h-16 bg-gradient-to-r from-indigo-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                      <TrendingUp className="w-8 h-8 text-white" />
-                    </div>
-                    <h4 className="text-xl font-bold text-white mb-2">Continuous Improvement</h4>
-                    <p className="text-gray-300 text-sm">Regular process optimization based on performance metrics and feedback.</p>
+                  <h4 className="text-lg font-semibold text-white mb-2">Continuous Improvement</h4>
+                  <p className="text-slate-400 text-sm">Regular optimization based on performance data.</p>
+                </div>
+                
+                <div className="text-center">
+                  <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-indigo-600 rounded-xl flex items-center justify-center mx-auto mb-3">
+                    <Award className="w-6 h-6 text-white" />
                   </div>
-                  
-                  <div className="text-center">
-                    <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                      <Award className="w-8 h-8 text-white" />
-                    </div>
-                    <h4 className="text-xl font-bold text-white mb-2">Proven Results</h4>
-                    <p className="text-gray-300 text-sm">High success rates and consistent client satisfaction across all processes.</p>
-                  </div>
+                  <h4 className="text-lg font-semibold text-white mb-2">Proven Results</h4>
+                  <p className="text-slate-400 text-sm">High success rates and client satisfaction.</p>
                 </div>
               </div>
             </div>
           </div>
         </section>
       </main>
+      
+      {/* Process Detail Modal */}
+      {selectedProcess && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="liquid-glass-card rounded-2xl p-6 max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+            {/* Modal Header */}
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center space-x-4">
+                <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-emerald-600 rounded-xl flex items-center justify-center">
+                  <Play className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <h3 className="text-2xl font-bold text-white">{selectedProcess.title}</h3>
+                  <p className="text-slate-300">{selectedProcess.description}</p>
+                </div>
+              </div>
+              <button
+                onClick={closeModal}
+                className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-white/20 transition-colors"
+              >
+                <X className="w-5 h-5 text-white" />
+              </button>
+            </div>
+
+            {/* Process Stats */}
+            <div className="flex flex-wrap gap-3 mb-6">
+              <span className="px-3 py-1 bg-blue-500/20 text-blue-300 rounded-lg">
+                {selectedProcess.totalSteps} Steps
+              </span>
+              <span className="px-3 py-1 bg-emerald-500/20 text-emerald-300 rounded-lg">
+                {selectedProcess.estimatedTime}
+              </span>
+              <span className={`px-3 py-1 rounded-lg text-xs font-medium ${getDifficultyColor(selectedProcess.difficulty)}`}>
+                {selectedProcess.difficulty.charAt(0).toUpperCase() + selectedProcess.difficulty.slice(1)}
+              </span>
+              <span className="px-3 py-1 bg-purple-500/20 text-purple-300 rounded-lg">
+                {selectedProcess.successRate}% Success Rate
+              </span>
+            </div>
+
+            {/* Process Steps */}
+            <div className="space-y-3">
+              <h4 className="text-lg font-semibold text-white mb-4">Process Steps</h4>
+              {selectedProcess.nodes.map((node, index) => (
+                <div
+                  key={node.id}
+                  className="flex items-center space-x-4 p-4 rounded-xl bg-white/5 border border-white/10"
+                >
+                  {/* Step Number */}
+                  <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold ${getStatusColor(node.status)} flex-shrink-0`}>
+                    {node.step}
+                  </div>
+
+                  {/* Icon */}
+                  <div className={`w-10 h-10 bg-gradient-to-r ${getCategoryColor(node.category)} rounded-lg flex items-center justify-center flex-shrink-0`}>
+                    <div className="text-white">
+                      {node.icon}
+                    </div>
+                  </div>
+
+                  {/* Content */}
+                  <div className="flex-1 min-w-0">
+                    <h4 className="text-sm font-semibold text-white mb-1">
+                      {node.title}
+                    </h4>
+                    <p className="text-slate-400 text-xs leading-relaxed">
+                      {node.description}
+                    </p>
+                  </div>
+
+                  {/* Status */}
+                  <div className="flex-shrink-0">
+                    <span className={`px-2 py-1 rounded-lg text-xs font-medium ${getStatusColor(node.status)} bg-opacity-20`}>
+                      {node.status === 'completed' ? 'Done' : node.status === 'in-progress' ? 'Active' : 'Pending'}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Modal Actions */}
+            <div className="flex justify-end mt-6 pt-6 border-t border-white/10">
+              <button
+                onClick={closeModal}
+                className="px-6 py-2 bg-gradient-to-r from-blue-500 to-emerald-600 text-white font-medium rounded-lg hover:from-blue-600 hover:to-emerald-700 transition-all duration-300"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
       
       {/* Live Chat Bot */}
       <LiveChatBot />
