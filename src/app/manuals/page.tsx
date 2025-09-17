@@ -124,7 +124,7 @@ const manuals: Manual[] = [
     description: 'Comprehensive troubleshooting guide for EVnation\'s supported home charger models: Emporia, ChargePoint, and Mercedes-Benz. Includes step-by-step solutions for connection issues, charging problems, app connectivity, Wi-Fi setup, and error message resolution to ensure optimal charger performance.',
     category: 'Technical',
     tags: ['Employee', 'Electrician'],
-    pages: 22,
+    pages: 4,
     lastUpdated: '2025-09-08',
     coverImage: '/api/placeholder/300/400',
     pdfUrl: '/manuals/trouble.pdf',
@@ -165,6 +165,22 @@ const manuals: Manual[] = [
     icon: <AlertTriangle className="w-6 h-6 text-white" />,
     keyFeatures: ['Utility Coordination', 'Permit Process', 'Panel Installation', 'Grounding Requirements', 'Inspection Protocols', 'Code Compliance'],
     targetAudience: 'EVnation certified electricians and project managers'
+  },
+  {
+    id: '9',
+    title: 'Electrum Warranty Replacement Process',
+    description: 'Complete process guide for handling Electrum warranty replacement requests including dispatch coordination, customer communication, installation scheduling, and invoice processing. Essential for maintaining customer satisfaction and proper warranty claim handling.',
+    category: 'Process',
+    tags: ['Employee', 'Electrician', 'Admin'],
+    pages: 4,
+    lastUpdated: '2025-09-08',
+    coverImage: '/api/placeholder/300/400',
+    pdfUrl: '', // No download available
+    rating: 4.8,
+    downloads: 0,
+    icon: <AlertTriangle className="w-6 h-6 text-white" />,
+    keyFeatures: ['Warranty Processing', 'Dispatch Coordination', 'Customer Communication', 'Installation Scheduling', 'Invoice Management', 'Documentation Requirements'],
+    targetAudience: 'EVnation dispatch team, electricians, and administrative staff'
   }
 ];
 
@@ -213,7 +229,15 @@ export default function ManualsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800">
+        <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 relative overflow-hidden">
+          {/* Animated Background Particles */}
+          <div className="absolute inset-0 overflow-hidden">
+            <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-blue-400/30 rounded-full animate-pulse"></div>
+            <div className="absolute top-1/3 right-1/3 w-1 h-1 bg-emerald-400/40 rounded-full animate-ping"></div>
+            <div className="absolute bottom-1/4 left-1/3 w-1.5 h-1.5 bg-purple-400/30 rounded-full animate-pulse"></div>
+            <div className="absolute top-1/2 right-1/4 w-1 h-1 bg-orange-400/40 rounded-full animate-ping"></div>
+            <div className="absolute bottom-1/3 right-1/2 w-2 h-2 bg-pink-400/20 rounded-full animate-pulse"></div>
+          </div>
       {/* Header */}
       <header className="bg-white/10 backdrop-blur-md border-b border-white/20 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -279,7 +303,7 @@ export default function ManualsPage() {
             >
               <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
                 <div className="text-center">
-                  <div className="text-4xl md:text-5xl font-bold text-white mb-2">8</div>
+                  <div className="text-4xl md:text-5xl font-bold text-white mb-2">9</div>
                   <div className="text-blue-200 text-sm font-medium">Available Manuals</div>
                 </div>
                 <div className="text-center">
@@ -291,7 +315,7 @@ export default function ManualsPage() {
                   <div className="text-blue-200 text-sm font-medium">Average Rating</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-4xl md:text-5xl font-bold text-white mb-2">8</div>
+                  <div className="text-4xl md:text-5xl font-bold text-white mb-2">9</div>
                   <div className="text-blue-200 text-sm font-medium">Success Processes</div>
                 </div>
               </div>
@@ -370,16 +394,28 @@ export default function ManualsPage() {
                   transition={{ delay: index * 0.1 }}
                   className="group"
                 >
-                  <div className="bg-white/10 backdrop-blur-md rounded-3xl overflow-hidden border border-white/20 h-[480px] flex flex-col shadow-xl">
+                      <div className="relative bg-white/10 backdrop-blur-md rounded-3xl overflow-hidden border border-white/20 h-[480px] flex flex-col shadow-2xl group hover:shadow-3xl transition-all duration-500 hover:scale-105 hover:border-white/40">
                     {/* Cover Image */}
-                    <div className="relative h-24 bg-gradient-to-br from-blue-500/30 to-emerald-600/30 flex items-center justify-center overflow-hidden flex-shrink-0">
-                      <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-emerald-600/20"></div>
-                      <div className="text-white drop-shadow-lg">
+                    <div className="relative h-24 bg-gradient-to-br from-blue-500/30 to-emerald-600/30 flex items-center justify-center overflow-hidden flex-shrink-0 group-hover:from-blue-500/40 group-hover:to-emerald-600/40 transition-all duration-500">
+                      <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-emerald-600/20 group-hover:from-blue-500/30 group-hover:to-emerald-600/30 transition-all duration-500"></div>
+                      
+                      {/* Animated Background Pattern */}
+                      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                        <div className="absolute top-2 left-2 w-1 h-1 bg-white/30 rounded-full animate-pulse"></div>
+                        <div className="absolute top-4 right-4 w-0.5 h-0.5 bg-white/40 rounded-full animate-ping"></div>
+                        <div className="absolute bottom-2 left-4 w-1 h-1 bg-white/20 rounded-full animate-pulse"></div>
+                      </div>
+                      
+                      <div className="text-white drop-shadow-lg group-hover:scale-110 transition-transform duration-300">
                         {manual.icon}
                       </div>
+                      
+                      {/* Glow Effect */}
+                      <div className="absolute inset-0 bg-gradient-to-r from-blue-400/20 to-emerald-500/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                      
                       <div className="absolute top-3 right-3">
-                        <div className="flex items-center space-x-1 bg-white/20 backdrop-blur-sm rounded-full px-2 py-1">
-                          <Star className="w-3 h-3 text-yellow-400 fill-current" />
+                        <div className="flex items-center space-x-1 bg-white/20 backdrop-blur-sm rounded-full px-2 py-1 group-hover:bg-white/30 transition-colors duration-300">
+                          <Star className="w-3 h-3 text-yellow-400 fill-current group-hover:scale-110 transition-transform duration-300" />
                           <span className="text-white text-xs font-medium">{manual.rating}</span>
                         </div>
                       </div>
@@ -477,24 +513,35 @@ export default function ManualsPage() {
                         </div>
                       </div>
                       
-                      {/* Buttons */}
-                      <div className="flex space-x-2 mt-auto pt-3 border-t border-white/10">
-                        <button
-                          onClick={() => handleDownload(manual.pdfUrl, manual.title, manual.id)}
-                          className="flex-1 flex items-center justify-center space-x-1.5 px-3 py-2.5 bg-gradient-to-r from-blue-500 to-emerald-600 text-white text-xs font-semibold rounded-lg shadow-lg"
-                        >
-                          <Download className="w-3.5 h-3.5" />
-                          <span>Download PDF</span>
-                        </button>
-                        
-                        <Link 
-                          href={`/manual/${manual.id}`}
-                          className="flex-1 flex items-center justify-center space-x-1.5 px-3 py-2.5 bg-white/20 backdrop-blur-sm border-2 border-white/40 text-white text-xs font-semibold rounded-lg shadow-lg"
-                        >
-                          <BookOpen className="w-3.5 h-3.5" />
-                          <span>Preview</span>
-                        </Link>
-                      </div>
+                          {/* Buttons */}
+                          <div className="flex space-x-2 mt-auto pt-3 border-t border-white/10">
+                            {manual.pdfUrl ? (
+                              <button
+                                onClick={() => handleDownload(manual.pdfUrl, manual.title, manual.id)}
+                                className="relative flex-1 flex items-center justify-center space-x-1.5 px-3 py-2.5 bg-gradient-to-r from-blue-500 to-emerald-600 text-white text-xs font-semibold rounded-lg shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 overflow-hidden group"
+                              >
+                                <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-emerald-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                                <Download className="w-3.5 h-3.5 relative z-10 group-hover:scale-110 transition-transform duration-300" />
+                                <span className="relative z-10">Download PDF</span>
+                                <div className="absolute inset-0 bg-white/20 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+                              </button>
+                            ) : (
+                              <div className="flex-1 flex items-center justify-center space-x-1.5 px-3 py-2.5 bg-gray-500/20 text-gray-400 text-xs font-semibold rounded-lg border border-gray-500/30">
+                                <BookOpen className="w-3.5 h-3.5" />
+                                <span>Online Only</span>
+                              </div>
+                            )}
+                            
+                            <Link 
+                              href={`/manual/${manual.id}`}
+                              className="relative flex-1 flex items-center justify-center space-x-1.5 px-3 py-2.5 bg-white/20 backdrop-blur-sm border-2 border-white/40 text-white text-xs font-semibold rounded-lg shadow-lg hover:shadow-xl hover:scale-105 hover:border-white/60 transition-all duration-300 overflow-hidden group"
+                            >
+                              <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                              <BookOpen className="w-3.5 h-3.5 relative z-10 group-hover:scale-110 transition-transform duration-300" />
+                              <span className="relative z-10">View Content</span>
+                              <div className="absolute inset-0 bg-white/10 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+                            </Link>
+                          </div>
                     </div>
                   </div>
                 </motion.div>

@@ -86,28 +86,56 @@ export default function Home() {
                 Providing a perfect guide for safe and accurate installation.
               </p>
               
-              {/* Stats */}
-              <div className="flex justify-center items-center space-x-8 mb-12">
-                <div className="text-center">
-                  <div className="text-3xl font-semibold text-white mb-1">5</div>
-                  <div className="text-slate-300 text-sm">Available Manuals</div>
-                </div>
-                <div className="w-px h-12 bg-slate-600"></div>
-                <div className="text-center">
-                  <div className="text-3xl font-semibold text-white mb-1">1,850</div>
-                  <div className="text-slate-300 text-sm">Total Downloads</div>
-                </div>
-                <div className="w-px h-12 bg-slate-600"></div>
-                <div className="text-center">
-                  <div className="text-3xl font-semibold text-white mb-1">4.9</div>
-                  <div className="text-slate-300 text-sm">Average Rating</div>
-                </div>
-                <div className="w-px h-12 bg-slate-600"></div>
-                <div className="text-center">
-                  <div className="text-3xl font-semibold text-white mb-1">5</div>
-                  <div className="text-slate-300 text-sm">Success Processes</div>
-                </div>
-              </div>
+                  {/* Stats */}
+                  <div className="flex justify-center items-center space-x-8 mb-12">
+                    <motion.div 
+                      className="text-center group cursor-pointer"
+                      whileHover={{ scale: 1.1 }}
+                      transition={{ type: "spring", stiffness: 300 }}
+                    >
+                      <div className="relative">
+                        <div className="text-3xl font-semibold text-white mb-1 group-hover:text-blue-300 transition-colors duration-300">9</div>
+                        <div className="absolute inset-0 bg-gradient-to-r from-blue-400/20 to-emerald-500/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                      </div>
+                      <div className="text-slate-300 text-sm group-hover:text-slate-200 transition-colors duration-300">Available Manuals</div>
+                    </motion.div>
+                    <div className="w-px h-12 bg-gradient-to-b from-transparent via-slate-600 to-transparent"></div>
+                    <motion.div 
+                      className="text-center group cursor-pointer"
+                      whileHover={{ scale: 1.1 }}
+                      transition={{ type: "spring", stiffness: 300 }}
+                    >
+                      <div className="relative">
+                        <div className="text-3xl font-semibold text-white mb-1 group-hover:text-emerald-300 transition-colors duration-300">2,790</div>
+                        <div className="absolute inset-0 bg-gradient-to-r from-emerald-400/20 to-blue-500/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                      </div>
+                      <div className="text-slate-300 text-sm group-hover:text-slate-200 transition-colors duration-300">Total Downloads</div>
+                    </motion.div>
+                    <div className="w-px h-12 bg-gradient-to-b from-transparent via-slate-600 to-transparent"></div>
+                    <motion.div 
+                      className="text-center group cursor-pointer"
+                      whileHover={{ scale: 1.1 }}
+                      transition={{ type: "spring", stiffness: 300 }}
+                    >
+                      <div className="relative">
+                        <div className="text-3xl font-semibold text-white mb-1 group-hover:text-yellow-300 transition-colors duration-300">4.9</div>
+                        <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/20 to-orange-500/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                      </div>
+                      <div className="text-slate-300 text-sm group-hover:text-slate-200 transition-colors duration-300">Average Rating</div>
+                    </motion.div>
+                    <div className="w-px h-12 bg-gradient-to-b from-transparent via-slate-600 to-transparent"></div>
+                    <motion.div 
+                      className="text-center group cursor-pointer"
+                      whileHover={{ scale: 1.1 }}
+                      transition={{ type: "spring", stiffness: 300 }}
+                    >
+                      <div className="relative">
+                        <div className="text-3xl font-semibold text-white mb-1 group-hover:text-purple-300 transition-colors duration-300">9</div>
+                        <div className="absolute inset-0 bg-gradient-to-r from-purple-400/20 to-pink-500/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                      </div>
+                      <div className="text-slate-300 text-sm group-hover:text-slate-200 transition-colors duration-300">Success Processes</div>
+                    </motion.div>
+                  </div>
             </motion.div>
           </div>
         </section>
@@ -133,126 +161,221 @@ export default function Home() {
               </p>
             </motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {/* Manuals Section */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
-                className="group"
-              >
-                <Link href="/manuals" className="block">
-                  <div className="liquid-glass-card rounded-3xl p-8 hover:border-blue-400/50 transition-all duration-300 h-full shadow-xl">
-                    <div className="w-20 h-20 bg-gradient-to-r from-blue-500 to-emerald-600 rounded-2xl flex items-center justify-center mb-6">
-                      <BookOpen className="w-10 h-10 text-white" />
-                    </div>
-                    <h3 className="text-2xl font-semibold text-white mb-4">EVnation Manuals</h3>
-                    <p className="text-slate-300 text-lg mb-6 leading-relaxed">
-                      Access comprehensive technical documentation, company policies, and operational guidelines.
-                    </p>
-                    <div className="flex items-center justify-between">
-                      <span className="text-blue-300 font-medium">8 Manuals Available</span>
-                      <ArrowRight className="w-6 h-6 text-blue-300 group-hover:translate-x-2 transition-transform duration-300" />
-                    </div>
-                  </div>
-                </Link>
-              </motion.div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  {/* Manuals Section */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.3 }}
+                    className="group"
+                  >
+                    <Link href="/manuals" className="block">
+                      <div className="relative liquid-glass-card rounded-3xl p-8 hover:border-blue-400/50 transition-all duration-500 h-full shadow-2xl overflow-hidden">
+                        {/* Animated Background Gradient */}
+                        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        
+                        {/* Floating Particles */}
+                        <div className="absolute top-4 right-4 w-2 h-2 bg-blue-400 rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-pulse transition-opacity duration-500"></div>
+                        <div className="absolute top-8 right-8 w-1 h-1 bg-emerald-400 rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-ping transition-opacity duration-700"></div>
+                        
+                        {/* 3D Icon Container */}
+                        <div className="relative mb-6">
+                          <div className="w-20 h-20 bg-gradient-to-r from-blue-500 to-emerald-600 rounded-2xl flex items-center justify-center mb-6 shadow-lg group-hover:shadow-2xl group-hover:scale-110 transition-all duration-500 transform group-hover:rotate-3">
+                            <BookOpen className="w-10 h-10 text-white group-hover:scale-110 transition-transform duration-300" />
+                          </div>
+                          {/* Glow Effect */}
+                          <div className="absolute inset-0 w-20 h-20 bg-gradient-to-r from-blue-400 to-emerald-500 rounded-2xl blur-xl opacity-0 group-hover:opacity-30 transition-opacity duration-500"></div>
+                        </div>
+                        
+                        <h3 className="text-2xl font-semibold text-white mb-4 group-hover:text-blue-300 transition-colors duration-300">EVnation Manuals</h3>
+                        <p className="text-slate-300 text-lg mb-6 leading-relaxed group-hover:text-slate-200 transition-colors duration-300">
+                          Access comprehensive technical documentation, company policies, and operational guidelines.
+                        </p>
+                        <div className="flex items-center justify-between">
+                          <span className="text-blue-300 font-medium group-hover:text-blue-200 transition-colors duration-300">9 Manuals Available</span>
+                          <div className="relative">
+                            <ArrowRight className="w-6 h-6 text-blue-300 group-hover:translate-x-2 transition-transform duration-300" />
+                            <div className="absolute inset-0 bg-blue-400/20 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                          </div>
+                        </div>
+                        
+                        {/* Hover Border Animation */}
+                        <div className="absolute inset-0 rounded-3xl border-2 border-transparent group-hover:border-blue-400/30 transition-all duration-500"></div>
+                      </div>
+                    </Link>
+                  </motion.div>
 
-              {/* Workplace Etiquette Section */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 }}
-                className="group"
-              >
-                <Link href="/etiquette" className="block">
-                  <div className="liquid-glass-card rounded-3xl p-8 hover:border-emerald-400/50 transition-all duration-300 h-full shadow-xl">
-                    <div className="w-20 h-20 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-2xl flex items-center justify-center mb-6">
-                      <Users className="w-10 h-10 text-white" />
-                    </div>
-                    <h3 className="text-2xl font-semibold text-white mb-4">Workplace Etiquette</h3>
-                    <p className="text-slate-300 text-lg mb-6 leading-relaxed">
-                      Essential guidelines for maintaining a professional, collaborative, and safe work environment.
-                    </p>
-                    <div className="flex items-center justify-between">
-                      <span className="text-emerald-300 font-medium">8 Guidelines</span>
-                      <ArrowRight className="w-6 h-6 text-emerald-300 group-hover:translate-x-2 transition-transform duration-300" />
-                    </div>
-                  </div>
-                </Link>
-              </motion.div>
+                  {/* Workplace Etiquette Section */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.4 }}
+                    className="group"
+                  >
+                    <Link href="/etiquette" className="block">
+                      <div className="relative liquid-glass-card rounded-3xl p-8 hover:border-emerald-400/50 transition-all duration-500 h-full shadow-2xl overflow-hidden">
+                        {/* Animated Background Gradient */}
+                        <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/10 via-teal-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        
+                        {/* Floating Particles */}
+                        <div className="absolute top-4 right-4 w-2 h-2 bg-emerald-400 rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-pulse transition-opacity duration-500"></div>
+                        <div className="absolute top-8 right-8 w-1 h-1 bg-teal-400 rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-ping transition-opacity duration-700"></div>
+                        
+                        {/* 3D Icon Container */}
+                        <div className="relative mb-6">
+                          <div className="w-20 h-20 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-2xl flex items-center justify-center mb-6 shadow-lg group-hover:shadow-2xl group-hover:scale-110 transition-all duration-500 transform group-hover:rotate-3">
+                            <Users className="w-10 h-10 text-white group-hover:scale-110 transition-transform duration-300" />
+                          </div>
+                          {/* Glow Effect */}
+                          <div className="absolute inset-0 w-20 h-20 bg-gradient-to-r from-emerald-400 to-teal-500 rounded-2xl blur-xl opacity-0 group-hover:opacity-30 transition-opacity duration-500"></div>
+                        </div>
+                        
+                        <h3 className="text-2xl font-semibold text-white mb-4 group-hover:text-emerald-300 transition-colors duration-300">Workplace Etiquette</h3>
+                        <p className="text-slate-300 text-lg mb-6 leading-relaxed group-hover:text-slate-200 transition-colors duration-300">
+                          Essential guidelines for maintaining a professional, collaborative, and safe work environment.
+                        </p>
+                        <div className="flex items-center justify-between">
+                          <span className="text-emerald-300 font-medium group-hover:text-emerald-200 transition-colors duration-300">8 Guidelines</span>
+                          <div className="relative">
+                            <ArrowRight className="w-6 h-6 text-emerald-300 group-hover:translate-x-2 transition-transform duration-300" />
+                            <div className="absolute inset-0 bg-emerald-400/20 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                          </div>
+                        </div>
+                        
+                        {/* Hover Border Animation */}
+                        <div className="absolute inset-0 rounded-3xl border-2 border-transparent group-hover:border-emerald-400/30 transition-all duration-500"></div>
+                      </div>
+                    </Link>
+                  </motion.div>
 
-              {/* Success Process Section */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5 }}
-                className="group"
-              >
-                <Link href="/processes" className="block">
-                  <div className="liquid-glass-card rounded-3xl p-8 hover:border-purple-400/50 transition-all duration-300 h-full shadow-xl">
-                    <div className="w-20 h-20 bg-gradient-to-r from-purple-500 to-indigo-600 rounded-2xl flex items-center justify-center mb-6">
-                      <Target className="w-10 h-10 text-white" />
-                    </div>
-                    <h3 className="text-2xl font-semibold text-white mb-4">Success Processes</h3>
-                    <p className="text-slate-300 text-lg mb-6 leading-relaxed">
-                      Step-by-step workflows that drive EVnation&apos;s success in EV charger installation.
-                    </p>
-                    <div className="flex items-center justify-between">
-                      <span className="text-purple-300 font-medium">5 Processes</span>
-                      <ArrowRight className="w-6 h-6 text-purple-300 group-hover:translate-x-2 transition-transform duration-300" />
-                    </div>
-                  </div>
-                </Link>
-              </motion.div>
+                  {/* Success Process Section */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.5 }}
+                    className="group"
+                  >
+                    <Link href="/processes" className="block">
+                      <div className="relative liquid-glass-card rounded-3xl p-8 hover:border-purple-400/50 transition-all duration-500 h-full shadow-2xl overflow-hidden">
+                        {/* Animated Background Gradient */}
+                        <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 via-indigo-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        
+                        {/* Floating Particles */}
+                        <div className="absolute top-4 right-4 w-2 h-2 bg-purple-400 rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-pulse transition-opacity duration-500"></div>
+                        <div className="absolute top-8 right-8 w-1 h-1 bg-indigo-400 rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-ping transition-opacity duration-700"></div>
+                        
+                        {/* 3D Icon Container */}
+                        <div className="relative mb-6">
+                          <div className="w-20 h-20 bg-gradient-to-r from-purple-500 to-indigo-600 rounded-2xl flex items-center justify-center mb-6 shadow-lg group-hover:shadow-2xl group-hover:scale-110 transition-all duration-500 transform group-hover:rotate-3">
+                            <Target className="w-10 h-10 text-white group-hover:scale-110 transition-transform duration-300" />
+                          </div>
+                          {/* Glow Effect */}
+                          <div className="absolute inset-0 w-20 h-20 bg-gradient-to-r from-purple-400 to-indigo-500 rounded-2xl blur-xl opacity-0 group-hover:opacity-30 transition-opacity duration-500"></div>
+                        </div>
+                        
+                        <h3 className="text-2xl font-semibold text-white mb-4 group-hover:text-purple-300 transition-colors duration-300">Success Processes</h3>
+                        <p className="text-slate-300 text-lg mb-6 leading-relaxed group-hover:text-slate-200 transition-colors duration-300">
+                          Step-by-step workflows that drive EVnation&apos;s success in EV charger installation.
+                        </p>
+                        <div className="flex items-center justify-between">
+                          <span className="text-purple-300 font-medium group-hover:text-purple-200 transition-colors duration-300">5 Processes</span>
+                          <div className="relative">
+                            <ArrowRight className="w-6 h-6 text-purple-300 group-hover:translate-x-2 transition-transform duration-300" />
+                            <div className="absolute inset-0 bg-purple-400/20 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                          </div>
+                        </div>
+                        
+                        {/* Hover Border Animation */}
+                        <div className="absolute inset-0 rounded-3xl border-2 border-transparent group-hover:border-purple-400/30 transition-all duration-500"></div>
+                      </div>
+                    </Link>
+                  </motion.div>
 
-              {/* Programs Section */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6 }}
-                className="group"
-              >
-                <Link href="/programs" className="block">
-                  <div className="liquid-glass-card rounded-3xl p-8 hover:border-orange-400/50 transition-all duration-300 h-full shadow-xl">
-                    <div className="w-20 h-20 bg-gradient-to-r from-orange-500 to-red-600 rounded-2xl flex items-center justify-center mb-6">
-                      <Globe className="w-10 h-10 text-white" />
-                    </div>
-                    <h3 className="text-2xl font-semibold text-white mb-4">Programs & Tools</h3>
-                    <p className="text-slate-300 text-lg mb-6 leading-relaxed">
-                      Access all essential EVnation tools and applications for efficient project management.
-                    </p>
-                    <div className="flex items-center justify-between">
-                      <span className="text-orange-300 font-medium">5 Tools Available</span>
-                      <ArrowRight className="w-6 h-6 text-orange-300 group-hover:translate-x-2 transition-transform duration-300" />
-                    </div>
-                  </div>
-                </Link>
-              </motion.div>
+                  {/* Programs Section */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.6 }}
+                    className="group"
+                  >
+                    <Link href="/programs" className="block">
+                      <div className="relative liquid-glass-card rounded-3xl p-8 hover:border-orange-400/50 transition-all duration-500 h-full shadow-2xl overflow-hidden">
+                        {/* Animated Background Gradient */}
+                        <div className="absolute inset-0 bg-gradient-to-br from-orange-500/10 via-red-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        
+                        {/* Floating Particles */}
+                        <div className="absolute top-4 right-4 w-2 h-2 bg-orange-400 rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-pulse transition-opacity duration-500"></div>
+                        <div className="absolute top-8 right-8 w-1 h-1 bg-red-400 rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-ping transition-opacity duration-700"></div>
+                        
+                        {/* 3D Icon Container */}
+                        <div className="relative mb-6">
+                          <div className="w-20 h-20 bg-gradient-to-r from-orange-500 to-red-600 rounded-2xl flex items-center justify-center mb-6 shadow-lg group-hover:shadow-2xl group-hover:scale-110 transition-all duration-500 transform group-hover:rotate-3">
+                            <Globe className="w-10 h-10 text-white group-hover:scale-110 transition-transform duration-300" />
+                          </div>
+                          {/* Glow Effect */}
+                          <div className="absolute inset-0 w-20 h-20 bg-gradient-to-r from-orange-400 to-red-500 rounded-2xl blur-xl opacity-0 group-hover:opacity-30 transition-opacity duration-500"></div>
+                        </div>
+                        
+                        <h3 className="text-2xl font-semibold text-white mb-4 group-hover:text-orange-300 transition-colors duration-300">Programs & Tools</h3>
+                        <p className="text-slate-300 text-lg mb-6 leading-relaxed group-hover:text-slate-200 transition-colors duration-300">
+                          Access all essential EVnation tools and applications for efficient project management.
+                        </p>
+                        <div className="flex items-center justify-between">
+                          <span className="text-orange-300 font-medium group-hover:text-orange-200 transition-colors duration-300">5 Tools Available</span>
+                          <div className="relative">
+                            <ArrowRight className="w-6 h-6 text-orange-300 group-hover:translate-x-2 transition-transform duration-300" />
+                            <div className="absolute inset-0 bg-orange-400/20 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                          </div>
+                        </div>
+                        
+                        {/* Hover Border Animation */}
+                        <div className="absolute inset-0 rounded-3xl border-2 border-transparent group-hover:border-orange-400/30 transition-all duration-500"></div>
+                      </div>
+                    </Link>
+                  </motion.div>
 
-              {/* Contact & Support */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.7 }}
-                className="group"
-              >
-                <Link href="/contact" className="block">
-                  <div className="liquid-glass-card rounded-3xl p-8 hover:border-pink-400/50 transition-all duration-300 h-full shadow-xl">
-                    <div className="w-20 h-20 bg-gradient-to-r from-pink-500 to-rose-600 rounded-2xl flex items-center justify-center mb-6">
-                      <Heart className="w-10 h-10 text-white" />
-                    </div>
-                    <h3 className="text-3xl font-semibold text-white mb-4">Contact & Support</h3>
-                    <p className="text-slate-300 text-lg mb-6 leading-relaxed">
-                      Get help, ask questions, or provide feedback to our team. We&apos;re here to support you.
-                    </p>
-                    <div className="flex items-center justify-between">
-                      <span className="text-pink-300 font-medium">Get Help</span>
-                      <ArrowRight className="w-6 h-6 text-pink-300 group-hover:translate-x-2 transition-transform duration-300" />
-                    </div>
-                  </div>
-                </Link>
-              </motion.div>
+                  {/* Contact & Support */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.7 }}
+                    className="group"
+                  >
+                    <Link href="/contact" className="block">
+                      <div className="relative liquid-glass-card rounded-3xl p-8 hover:border-pink-400/50 transition-all duration-500 h-full shadow-2xl overflow-hidden">
+                        {/* Animated Background Gradient */}
+                        <div className="absolute inset-0 bg-gradient-to-br from-pink-500/10 via-rose-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        
+                        {/* Floating Particles */}
+                        <div className="absolute top-4 right-4 w-2 h-2 bg-pink-400 rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-pulse transition-opacity duration-500"></div>
+                        <div className="absolute top-8 right-8 w-1 h-1 bg-rose-400 rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-ping transition-opacity duration-700"></div>
+                        
+                        {/* 3D Icon Container */}
+                        <div className="relative mb-6">
+                          <div className="w-20 h-20 bg-gradient-to-r from-pink-500 to-rose-600 rounded-2xl flex items-center justify-center mb-6 shadow-lg group-hover:shadow-2xl group-hover:scale-110 transition-all duration-500 transform group-hover:rotate-3">
+                            <Heart className="w-10 h-10 text-white group-hover:scale-110 transition-transform duration-300" />
+                          </div>
+                          {/* Glow Effect */}
+                          <div className="absolute inset-0 w-20 h-20 bg-gradient-to-r from-pink-400 to-rose-500 rounded-2xl blur-xl opacity-0 group-hover:opacity-30 transition-opacity duration-500"></div>
+                        </div>
+                        
+                        <h3 className="text-3xl font-semibold text-white mb-4 group-hover:text-pink-300 transition-colors duration-300">Contact & Support</h3>
+                        <p className="text-slate-300 text-lg mb-6 leading-relaxed group-hover:text-slate-200 transition-colors duration-300">
+                          Get help, ask questions, or provide feedback to our team. We&apos;re here to support you.
+                        </p>
+                        <div className="flex items-center justify-between">
+                          <span className="text-pink-300 font-medium group-hover:text-pink-200 transition-colors duration-300">Get Help</span>
+                          <div className="relative">
+                            <ArrowRight className="w-6 h-6 text-pink-300 group-hover:translate-x-2 transition-transform duration-300" />
+                            <div className="absolute inset-0 bg-pink-400/20 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                          </div>
+                        </div>
+                        
+                        {/* Hover Border Animation */}
+                        <div className="absolute inset-0 rounded-3xl border-2 border-transparent group-hover:border-pink-400/30 transition-all duration-500"></div>
+                      </div>
+                    </Link>
+                  </motion.div>
             </div>
           </div>
         </section>
