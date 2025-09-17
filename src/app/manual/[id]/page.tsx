@@ -2,7 +2,7 @@
 
 import { useParams } from 'next/navigation';
 import { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { 
   Building2, 
   Download, 
@@ -19,11 +19,8 @@ import {
   ChevronLeft,
   ChevronRight,
   ChevronDown,
-  ChevronUp,
   Copy,
   ExternalLink,
-  Eye,
-  EyeOff,
   HelpCircle,
   Lightbulb,
   Target,
@@ -1619,7 +1616,7 @@ const manuals: Manual[] = [
 const ExpandableSection = ({ title, children, icon: Icon }: { 
   title: string; 
   children: React.ReactNode; 
-  icon?: React.ComponentType<any>;
+  icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
 }) => {
   return (
     <div className="border border-white/20 rounded-xl overflow-hidden mb-4">
@@ -1672,14 +1669,6 @@ const TipBox = ({ children }: { children: React.ReactNode }) => (
   </div>
 );
 
-const WarningBox = ({ children }: { children: React.ReactNode }) => (
-  <div className="p-4 bg-gradient-to-r from-red-500/10 to-orange-500/10 border border-red-500/20 rounded-lg">
-    <div className="flex items-start space-x-3">
-      <AlertTriangle className="w-5 h-5 text-red-400 mt-0.5 flex-shrink-0" />
-      <div className="text-red-100 text-sm">{children}</div>
-    </div>
-  </div>
-);
 
 const InfoBox = ({ children }: { children: React.ReactNode }) => (
   <div className="p-4 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 border border-blue-500/20 rounded-lg">
@@ -1696,7 +1685,7 @@ const QuickActionButton = ({
   onClick, 
   variant = 'primary' 
 }: { 
-  icon: React.ComponentType<any>; 
+  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>; 
   label: string; 
   onClick: () => void;
   variant?: 'primary' | 'secondary';
@@ -2272,7 +2261,6 @@ export default function ManualPage() {
               <ExpandableSection
                 title="Export & Share Options"
                 icon={Download}
-                defaultOpen={true}
               >
                 <div className="space-y-6">
                   {manual.pdfUrl ? (

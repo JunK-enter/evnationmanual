@@ -605,7 +605,7 @@ export default function ProcessesPage() {
             {/* Process Steps */}
             <div className="space-y-3">
               <h4 className="text-lg font-semibold text-white mb-4">Process Steps</h4>
-              {selectedProcess.nodes.map((node, index) => (
+              {selectedProcess.nodes.map((node) => (
                 <div
                   key={node.id}
                   className="flex items-center space-x-4 p-4 rounded-xl bg-white/5 border border-white/10"
