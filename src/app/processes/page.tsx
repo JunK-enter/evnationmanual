@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef, useMemo, memo, useCallback } from 'react';
+import { useState, useMemo, memo, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Play, 
@@ -16,29 +16,15 @@ import {
   ArrowLeft,
   X,
   Clock,
-  Filter,
   Search,
   Download,
   Share2,
-  Bookmark,
   Eye,
-  ChevronDown,
-  ChevronUp,
-  Sparkles,
-  Rocket,
   Lightbulb,
   Settings,
-  BarChart3,
   Calendar,
-  MapPin,
-  Phone,
-  Mail,
-  MessageSquare,
   FileText,
-  CheckSquare,
-  AlertCircle,
-  Info,
-  ExternalLink
+  CheckSquare
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -629,7 +615,7 @@ const getDifficultyColor = (difficulty: string) => {
 // New Components
 // Removed AnimatedParticle for better performance
 
-const ProcessCard = memo(({ process, onClick }: { process: ProcessFlow; onClick: () => void }) => {
+const ProcessCard = memo(function ProcessCard({ process, onClick }: { process: ProcessFlow; onClick: () => void }) {
   return (
     <motion.div
       className="liquid-glass-card rounded-2xl p-6 cursor-pointer transition-all duration-300 hover:bg-white/15 relative overflow-hidden"
@@ -707,7 +693,7 @@ const ProcessCard = memo(({ process, onClick }: { process: ProcessFlow; onClick:
   );
 });
 
-const SearchAndFilter = memo(({ onSearch, onFilter }: { onSearch: (query: string) => void; onFilter: (filter: string) => void }) => {
+const SearchAndFilter = memo(function SearchAndFilter({ onSearch, onFilter }: { onSearch: (query: string) => void; onFilter: (filter: string) => void }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedFilter, setSelectedFilter] = useState('all');
   
@@ -769,7 +755,6 @@ export default function ProcessesPage() {
   const [selectedProcess, setSelectedProcess] = useState<ProcessFlow | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedFilter, setSelectedFilter] = useState('all');
-  const [isLoading, setIsLoading] = useState(false);
 
   // Performance optimization with useMemo
   const filteredAndSearchedProcesses = useMemo(() => {
