@@ -13,7 +13,6 @@ import {
   Globe
 } from 'lucide-react';
 import Link from 'next/link';
-import LiveChatBot from '@/components/LiveChatBot';
 
 interface ContactPerson {
   name: string;
@@ -266,8 +265,6 @@ export default function ContactPage() {
         </section>
       </main>
       
-      {/* Live Chat Bot */}
-      <LiveChatBot />
     </div>
   );
 }

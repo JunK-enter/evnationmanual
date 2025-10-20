@@ -17,7 +17,6 @@ import {
   X
 } from 'lucide-react';
 import Link from 'next/link';
-import LiveChatBot from '@/components/LiveChatBot';
 
 interface EtiquetteItem {
   id: number;
@@ -406,8 +405,6 @@ export default function EtiquettePage() {
         </section>
       </main>
       
-      {/* Live Chat Bot */}
-      <LiveChatBot />
     </div>
   );
 }

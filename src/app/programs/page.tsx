@@ -13,7 +13,6 @@ import {
   Star
 } from 'lucide-react';
 import Link from 'next/link';
-import LiveChatBot from '@/components/LiveChatBot';
 
 interface Program {
   id: string;
@@ -341,8 +340,6 @@ export default function ProgramsPage() {
         </motion.div>
       </main>
       
-      {/* Live Chat Bot */}
-      <LiveChatBot />
     </div>
   );
 }

@@ -25,7 +25,7 @@ const manuals = [
   },
   {
     id: '5',
-    filename: 'Billing.pdf',
+    filename: 'EVnation invoice and billing.pdf',
     title: 'Invoicing & Billing Manual'
   },
   {

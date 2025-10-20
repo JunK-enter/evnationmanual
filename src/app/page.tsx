@@ -1,6 +1,8 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import ProtectedRoute from '@/components/ProtectedRoute';
+import { useAuth } from '@/components/AuthProvider';
 import { 
   ArrowRight, 
   BookOpen,
@@ -8,14 +10,20 @@ import {
   Target,
   Users,
   Heart,
-  Zap
+  Zap,
+  LogOut
 } from 'lucide-react';
 import Link from 'next/link';
-import LiveChatBot from '@/components/LiveChatBot';
 
 export default function Home() {
+  const { userEmail, logout } = useAuth();
+  
+  // Extract name from email (e.g., "jun@evnation.us" -> "Jun")
+  const userName = userEmail ? userEmail.split('@')[0].charAt(0).toUpperCase() + userEmail.split('@')[0].slice(1) : '';
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800"> 
+    <ProtectedRoute>
+      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800"> 
       {/* Animated Background */}
       <div className="fixed inset-0 -z-10">
         <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800"></div>
@@ -60,6 +68,18 @@ export default function Home() {
                 <Target className="w-4 h-4 text-yellow-400" />
                 <span className="text-sm">4.9/5.0</span>
               </div>
+              <div className="flex items-center space-x-4">
+                <span className="text-sm text-slate-400">Welcome, {userName}</span>
+                <motion.button
+                  onClick={logout}
+                  className="flex items-center space-x-2 px-3 py-2 bg-red-500/20 text-red-300 rounded-lg hover:bg-red-500/30 transition-colors"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <LogOut className="w-4 h-4" />
+                  <span className="text-sm">Logout</span>
+                </motion.button>
+              </div>
             </motion.div>
           </div>
         </div>
@@ -71,9 +91,9 @@ export default function Home() {
         <section className="pt-20 pb-16 px-4 sm:px-6 lg:px-8">
           <div className="max-w-7xl mx-auto text-center">
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
+              transition={{ duration: 0.5 }}
             >
               <h2 className="text-6xl md:text-7xl font-semibold text-white mb-6 leading-tight">
                 <span className="bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-transparent">EV Charger</span>
@@ -86,56 +106,56 @@ export default function Home() {
                 Providing a perfect guide for safe and accurate installation.
               </p>
               
-                  {/* Stats */}
-                  <div className="flex justify-center items-center space-x-8 mb-12">
+              {/* Stats */}
+              <div className="flex justify-center items-center space-x-8 mb-12">
                     <motion.div 
                       className="text-center group cursor-pointer"
-                      whileHover={{ scale: 1.1 }}
-                      transition={{ type: "spring", stiffness: 300 }}
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ type: "spring", stiffness: 200, damping: 20 }}
                     >
                       <div className="relative">
                         <div className="text-3xl font-semibold text-white mb-1 group-hover:text-blue-300 transition-colors duration-300">9</div>
                         <div className="absolute inset-0 bg-gradient-to-r from-blue-400/20 to-emerald-500/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                      </div>
+                </div>
                       <div className="text-slate-300 text-sm group-hover:text-slate-200 transition-colors duration-300">Available Manuals</div>
-                    </motion.div>
+            </motion.div>
                     <div className="w-px h-12 bg-gradient-to-b from-transparent via-slate-600 to-transparent"></div>
-                    <motion.div 
+            <motion.div
                       className="text-center group cursor-pointer"
-                      whileHover={{ scale: 1.1 }}
-                      transition={{ type: "spring", stiffness: 300 }}
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ type: "spring", stiffness: 200, damping: 20 }}
                     >
                       <div className="relative">
                         <div className="text-3xl font-semibold text-white mb-1 group-hover:text-emerald-300 transition-colors duration-300">2,790</div>
                         <div className="absolute inset-0 bg-gradient-to-r from-emerald-400/20 to-blue-500/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                      </div>
+                </div>
                       <div className="text-slate-300 text-sm group-hover:text-slate-200 transition-colors duration-300">Total Downloads</div>
                     </motion.div>
                     <div className="w-px h-12 bg-gradient-to-b from-transparent via-slate-600 to-transparent"></div>
                     <motion.div 
                       className="text-center group cursor-pointer"
-                      whileHover={{ scale: 1.1 }}
-                      transition={{ type: "spring", stiffness: 300 }}
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ type: "spring", stiffness: 200, damping: 20 }}
                     >
                       <div className="relative">
                         <div className="text-3xl font-semibold text-white mb-1 group-hover:text-yellow-300 transition-colors duration-300">4.9</div>
                         <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/20 to-orange-500/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                      </div>
+                </div>
                       <div className="text-slate-300 text-sm group-hover:text-slate-200 transition-colors duration-300">Average Rating</div>
                     </motion.div>
                     <div className="w-px h-12 bg-gradient-to-b from-transparent via-slate-600 to-transparent"></div>
                     <motion.div 
                       className="text-center group cursor-pointer"
-                      whileHover={{ scale: 1.1 }}
-                      transition={{ type: "spring", stiffness: 300 }}
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ type: "spring", stiffness: 200, damping: 20 }}
                     >
                       <div className="relative">
                         <div className="text-3xl font-semibold text-white mb-1 group-hover:text-purple-300 transition-colors duration-300">9</div>
                         <div className="absolute inset-0 bg-gradient-to-r from-purple-400/20 to-pink-500/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                      </div>
+                </div>
                       <div className="text-slate-300 text-sm group-hover:text-slate-200 transition-colors duration-300">Success Processes</div>
                     </motion.div>
-                  </div>
+              </div>
             </motion.div>
           </div>
         </section>
@@ -163,30 +183,24 @@ export default function Home() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                   {/* Manuals Section */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.3 }}
-                    className="group"
-                  >
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2, duration: 0.4 }}
+                  className="group"
+                >
                     <Link href="/manuals" className="block">
                       <div className="relative liquid-glass-card rounded-3xl p-8 hover:border-blue-400/50 transition-all duration-500 h-full shadow-2xl overflow-hidden">
-                        {/* Animated Background Gradient */}
-                        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                        
-                        {/* Floating Particles */}
-                        <div className="absolute top-4 right-4 w-2 h-2 bg-blue-400 rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-pulse transition-opacity duration-500"></div>
-                        <div className="absolute top-8 right-8 w-1 h-1 bg-emerald-400 rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-ping transition-opacity duration-700"></div>
+                        {/* Simplified Background Gradient */}
+                        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                         
                         {/* 3D Icon Container */}
                         <div className="relative mb-6">
-                          <div className="w-20 h-20 bg-gradient-to-r from-blue-500 to-emerald-600 rounded-2xl flex items-center justify-center mb-6 shadow-lg group-hover:shadow-2xl group-hover:scale-110 transition-all duration-500 transform group-hover:rotate-3">
-                            <BookOpen className="w-10 h-10 text-white group-hover:scale-110 transition-transform duration-300" />
-                          </div>
-                          {/* Glow Effect */}
-                          <div className="absolute inset-0 w-20 h-20 bg-gradient-to-r from-blue-400 to-emerald-500 rounded-2xl blur-xl opacity-0 group-hover:opacity-30 transition-opacity duration-500"></div>
-                        </div>
-                        
+                          <div className="w-20 h-20 bg-gradient-to-r from-blue-500 to-emerald-600 rounded-2xl flex items-center justify-center mb-6 shadow-lg group-hover:shadow-xl group-hover:scale-105 transition-all duration-300">
+                            <BookOpen className="w-10 h-10 text-white" />
+                      </div>
+                    </div>
+                    
                         <h3 className="text-2xl font-semibold text-white mb-4 group-hover:text-blue-300 transition-colors duration-300">EVnation Manuals</h3>
                         <p className="text-slate-300 text-lg mb-6 leading-relaxed group-hover:text-slate-200 transition-colors duration-300">
                           Access comprehensive technical documentation, company policies, and operational guidelines.
@@ -196,7 +210,7 @@ export default function Home() {
                           <div className="relative">
                             <ArrowRight className="w-6 h-6 text-blue-300 group-hover:translate-x-2 transition-transform duration-300" />
                             <div className="absolute inset-0 bg-blue-400/20 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                          </div>
+                        </div>
                         </div>
                         
                         {/* Hover Border Animation */}
@@ -282,17 +296,17 @@ export default function Home() {
                           <div className="relative">
                             <ArrowRight className="w-6 h-6 text-purple-300 group-hover:translate-x-2 transition-transform duration-300" />
                             <div className="absolute inset-0 bg-purple-400/20 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                          </div>
                         </div>
+                      </div>
                         
                         {/* Hover Border Animation */}
                         <div className="absolute inset-0 rounded-3xl border-2 border-transparent group-hover:border-purple-400/30 transition-all duration-500"></div>
                       </div>
                     </Link>
-                  </motion.div>
+            </motion.div>
 
                   {/* Programs Section */}
-                  <motion.div
+              <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.6 }}
@@ -311,10 +325,10 @@ export default function Home() {
                         <div className="relative mb-6">
                           <div className="w-20 h-20 bg-gradient-to-r from-orange-500 to-red-600 rounded-2xl flex items-center justify-center mb-6 shadow-lg group-hover:shadow-2xl group-hover:scale-110 transition-all duration-500 transform group-hover:rotate-3">
                             <Globe className="w-10 h-10 text-white group-hover:scale-110 transition-transform duration-300" />
-                          </div>
+                </div>
                           {/* Glow Effect */}
                           <div className="absolute inset-0 w-20 h-20 bg-gradient-to-r from-orange-400 to-red-500 rounded-2xl blur-xl opacity-0 group-hover:opacity-30 transition-opacity duration-500"></div>
-                        </div>
+          </div>
                         
                         <h3 className="text-2xl font-semibold text-white mb-4 group-hover:text-orange-300 transition-colors duration-300">Programs & Tools</h3>
                         <p className="text-slate-300 text-lg mb-6 leading-relaxed group-hover:text-slate-200 transition-colors duration-300">
@@ -332,12 +346,12 @@ export default function Home() {
                         <div className="absolute inset-0 rounded-3xl border-2 border-transparent group-hover:border-orange-400/30 transition-all duration-500"></div>
                       </div>
                     </Link>
-                  </motion.div>
+            </motion.div>
 
                   {/* Contact & Support */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.7 }}
                     className="group"
                   >
@@ -354,10 +368,10 @@ export default function Home() {
                         <div className="relative mb-6">
                           <div className="w-20 h-20 bg-gradient-to-r from-pink-500 to-rose-600 rounded-2xl flex items-center justify-center mb-6 shadow-lg group-hover:shadow-2xl group-hover:scale-110 transition-all duration-500 transform group-hover:rotate-3">
                             <Heart className="w-10 h-10 text-white group-hover:scale-110 transition-transform duration-300" />
-                          </div>
+                </div>
                           {/* Glow Effect */}
                           <div className="absolute inset-0 w-20 h-20 bg-gradient-to-r from-pink-400 to-rose-500 rounded-2xl blur-xl opacity-0 group-hover:opacity-30 transition-opacity duration-500"></div>
-                        </div>
+                </div>
                         
                         <h3 className="text-3xl font-semibold text-white mb-4 group-hover:text-pink-300 transition-colors duration-300">Contact & Support</h3>
                         <p className="text-slate-300 text-lg mb-6 leading-relaxed group-hover:text-slate-200 transition-colors duration-300">
@@ -368,21 +382,19 @@ export default function Home() {
                           <div className="relative">
                             <ArrowRight className="w-6 h-6 text-pink-300 group-hover:translate-x-2 transition-transform duration-300" />
                             <div className="absolute inset-0 bg-pink-400/20 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                          </div>
-                        </div>
+                </div>
+                </div>
                         
                         {/* Hover Border Animation */}
                         <div className="absolute inset-0 rounded-3xl border-2 border-transparent group-hover:border-pink-400/30 transition-all duration-500"></div>
-                      </div>
-                    </Link>
-                  </motion.div>
+                </div>
+              </Link>
+            </motion.div>
             </div>
           </div>
         </section>
       </main>
-      
-      {/* Live Chat Bot */}
-      <LiveChatBot />
-    </div>
+      </div>
+    </ProtectedRoute>
   );
 }

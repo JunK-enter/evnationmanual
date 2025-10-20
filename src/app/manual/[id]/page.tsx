@@ -1129,12 +1129,101 @@ const manuals: Manual[] = [
     pages: 28,
     lastUpdated: '2025-09-08',
     coverImage: '/api/placeholder/300/400',
-    pdfUrl: '/manuals/Billing.pdf',
+    pdfUrl: '/manuals/EVnation invoice and billing.pdf',
     rating: 4.8,
     downloads: 95,
     icon: <FileText className="w-6 h-6 text-white" />,
     keyFeatures: ['Invoice Generation', 'Payment Tracking', 'Client Billing', 'Financial Reporting', 'Accounts Receivable', 'Payment Processing'],
-    targetAudience: 'EVnation administrative staff and project managers'
+    targetAudience: 'EVnation administrative staff and project managers',
+    content: [
+      {
+        pageNumber: 1,
+        title: 'EVnation Billing & Invoicing Process',
+        content: 'Complete guide for EVnation\'s billing and invoicing processes including invoice creation in Pipedrive, QuickBooks integration, and electrician payment procedures.',
+        sections: [
+          {
+            title: 'Invoice Creation in Pipedrive → QuickBooks',
+            content: 'Step-by-step process for creating invoices in Pipedrive that automatically sync to QuickBooks.',
+            subsections: [
+              {
+                title: 'Step 1: Access the Deal',
+                content: 'Go to the Deal in Pipedrive.'
+              },
+              {
+                title: 'Step 2: Create Invoice',
+                content: 'Select Invoice → Invoice again from the drop-down menu.'
+              },
+              {
+                title: 'Step 3: Fill Invoice Details',
+                content: 'A pop-up screen will appear. Fill it in as follows:',
+                tips: [
+                  'Other: Enter Electrum',
+                  'Item Type: Enter Electrum again, and select from the drop-down',
+                  'Invoice No.: Enter the Project Number',
+                  'Unit Price: Enter the Total Job Price'
+                ]
+              },
+              {
+                title: 'Step 4: Complete Creation',
+                content: 'Click Create Invoice. Once created, the invoice is automatically synced and created in QuickBooks.'
+              }
+            ]
+          },
+          {
+            title: 'Billing Process (Paying Electricians)',
+            content: 'Process for authorizing and processing electrician payments through QuickBooks.',
+            subsections: [
+              {
+                title: 'Authorization Requirements',
+                content: 'Bill authorization will come from Neil or Cameron, with a note "OK to pay" and the Profit Amount.'
+              },
+              {
+                title: 'Step 1: Receive Authorization',
+                content: 'When you receive the email with "OK to pay" authorization.'
+              },
+              {
+                title: 'Step 2: Access QuickBooks',
+                content: 'Go to QuickBooks and search using either the Customer ID or Project ID.'
+              },
+              {
+                title: 'Step 3: Verify Invoice',
+                content: 'Confirm if the invoice exists in QuickBooks.'
+              },
+              {
+                title: 'Step 4A: Invoice Exists',
+                content: 'If invoice already exists in QuickBooks: Create the Bill for the electrician against that invoice.'
+              },
+              {
+                title: 'Step 4B: Invoice Does Not Exist',
+                content: 'If invoice does not exist in QuickBooks: Request that it be created in Pipedrive (which will sync to QuickBooks), or create the invoice yourself in Pipedrive following the Invoice Creation process.'
+              }
+            ]
+          },
+          {
+            title: 'Key Notes & Best Practices',
+            content: 'Important guidelines for successful billing and invoicing processes.',
+            subsections: [
+              {
+                title: 'Invoice Tracking',
+                content: 'Always use Project Number as Invoice No. for tracking purposes.'
+              },
+              {
+                title: 'Sync Verification',
+                content: 'Double-check invoice sync in QuickBooks before creating bills.'
+              },
+              {
+                title: 'Payment Authorization',
+                content: 'Only pay bills once an "OK to Pay" note is received from Neil or Cameron.'
+              },
+              {
+                title: 'Documentation',
+                content: 'Maintain proper documentation of all billing transactions for audit purposes.'
+              }
+            ]
+          }
+        ]
+      }
+    ]
   },
   {
     id: '6',
@@ -1377,18 +1466,121 @@ const manuals: Manual[] = [
   {
     id: '7',
     title: 'EVnation Electrician Process Manual',
-    description: 'Complete process manual for EVnation electricians covering certification requirements, insurance compliance, proper photo documentation procedures, and installation standards. Essential guide for maintaining quality installations and ensuring proper documentation for job verification and payment processing.',
+    description: 'Complete process manual for EVnation electricians covering EVITP certification requirements, insurance compliance, comprehensive photo documentation procedures, payment processes, permit handling, panel upgrade coordination, and manufacturer troubleshooting support. Essential guide for maintaining quality installations and ensuring proper documentation for job verification and payment processing.',
     category: 'Process',
     tags: ['Employee', 'Electrician'],
-    pages: 18,
-    lastUpdated: '2025-09-08',
+    pages: 22,
+    lastUpdated: '2025-01-27',
     coverImage: '/api/placeholder/300/400',
-    pdfUrl: '/manuals/electrician.pdf',
-    rating: 4.8,
-    downloads: 180,
+    pdfUrl: '/manuals/EVnation Electrician Process Manual.pdf',
+    rating: 4.9,
+    downloads: 245,
     icon: <Building2 className="w-6 h-6 text-white" />,
-    keyFeatures: ['Electrician Requirements', 'EVITP Certification', 'Insurance Compliance', 'Photo Documentation', 'Installation Standards', 'Quality Control'],
-    targetAudience: 'EVnation certified electricians and installation teams'
+    keyFeatures: ['EVITP Certification Requirements', 'Insurance Compliance', 'Photo Documentation Standards', 'Payment Process', 'Permit & Inspection', 'Panel Upgrade Coordination', 'Manufacturer Support'],
+    targetAudience: 'EVnation certified electricians and installation teams',
+    content: [
+      {
+        pageNumber: 1,
+        title: 'Electrician Requirements',
+        content: 'To be eligible for performing installations under EVnation, the electrician must meet the following qualifications:',
+        sections: [
+          {
+            title: 'Required Certifications',
+            content: '• EVITP Certified (Electric Vehicle Infrastructure Training Program)\n• Certified Electrician (In-State)\n• Valid and Updated Insurance\n• Valid Electrical License'
+          },
+          {
+            title: 'Insurance Requirements',
+            content: 'Insurance must list EVnation LLC as:\n• Additional Insured\n• Loss Payee'
+          }
+        ]
+      },
+      {
+        pageNumber: 2,
+        title: 'Proper Photo Upload',
+        content: 'Before and after photos are critical for documentation, job verification, and payment processing. Please ensure all required images are uploaded to the customer\'s designated Google Drive folder.',
+        sections: [
+          {
+            title: 'General Required Photos (All Jobs)',
+            content: '• Photo of the main breaker (e.g., 100A / 200A / 225A)\n• Photo of the new breaker size installed for charger (e.g., 30A / 40A / 50A / 60A)\n• Photo of charger location\n• Photo showing complete conduit and wiring run\n• Photo of grounding at the panel\n• Photo of grounding at the charger or receptacle (with the device/box open)\n• Photo of new breaker with wires landed\n• Photo of closed charger or receptacle\n• Photo of panel with dead front installed and new circuit clearly labeled\n• Photo showing clear full view of panel location\n• Confirm that proper wire size has been installed\n• Confirm that all breakers in the panel are operational\n• Screenshot of charger app showing serial number and successful activation\n• Photo of operational charger mounted on the wall\n• Close-up photo of charger serial number and/or QR code'
+          },
+          {
+            title: 'Additional Required Photos (Panel or Service Upgrade Only)',
+            content: 'If a panel upgrade or service upgrade was performed, please also provide:\n• SCE or utility company Meter Spot Order Number\n• Level of new service (e.g., 200A / 225A / 400A)\n• Photo showing location of the new panel (if relocated)\n• Photo of the old panel location and new panel location side-by-side if applicable'
+          }
+        ]
+      },
+      {
+        pageNumber: 3,
+        title: 'General Job Instructions',
+        content: 'All EVnation jobs must follow our standardized installation procedures.',
+        sections: [
+          {
+            title: 'Instructions',
+            content: '• Access the General Job Instruction Sheet in the customer\'s Google Drive folder\n• Follow the listed requirements exactly\n• Mounting locations\n• Breaker panel routing\n• Conduit placement\n• Safety clearances\n• Labeling standards'
+          },
+          {
+            title: 'Important Note',
+            content: 'Do not proceed without reviewing this file for each job.'
+          }
+        ]
+      },
+      {
+        pageNumber: 4,
+        title: 'Payment Process',
+        content: 'Electricians will be paid within 3 business days after the following steps are fully completed and verified:',
+        sections: [
+          {
+            title: 'Payment Requirements',
+            content: '• All required photos uploaded\n• Job signed off by customer\n• EVnation Installation Sheet is fully completed\n• Permit application submitted (if applicable)\n• Internal review by the EVnation team is passed'
+          }
+        ]
+      },
+      {
+        pageNumber: 5,
+        title: 'Permit & Inspection Details',
+        content: 'Determine if Permit is Required - This will be clearly indicated in the General Job Instruction document located in the customer folder.',
+        sections: [
+          {
+            title: 'Permit Responsibilities by Region',
+            content: 'Southern California: EVnation\nNorthern California & Other States: Electrician'
+          },
+          {
+            title: 'Electrician Responsibilities',
+            content: 'If permit is pulled by electrician, they are also responsible for:\n• Scheduling the inspection\n• Attending and passing final inspection'
+          }
+        ]
+      },
+      {
+        pageNumber: 6,
+        title: 'Panel Upgrade Information',
+        content: 'When is a Panel Upgrade Required? A panel upgrade is required in the following cases: 1. Customer requests it 2. Load calculation fails to meet EV charger requirements',
+        sections: [
+          {
+            title: 'How to Coordinate a Panel Upgrade',
+            content: '1. Gather Information from Customer\n2. Submit the collected information to the EVnation coordinator\n3. Collect a safety deposit once information is confirmed\n4. Pull permit and schedule installation'
+          },
+          {
+            title: 'Customer Intake Script',
+            content: 'Subject: Charge Ready Home – Panel Upgrade Intake Instructions\n\nDear Customer,\n\nThank you for choosing EVnation for your Charge Ready Home project. Please follow the instructions below to help us gather the necessary information for your panel upgrade and charger installation.'
+          }
+        ]
+      },
+      {
+        pageNumber: 7,
+        title: 'Troubleshooting Support',
+        content: 'If any issues arise during the EV charger installation, the electrician must contact the charger manufacturer directly using the numbers below before proceeding with on-site troubleshooting.',
+        sections: [
+          {
+            title: 'Mandatory Step',
+            content: 'For technical issues, electricians must call the manufacturer\'s support line specific to the charger being installed.'
+          },
+          {
+            title: 'Support Numbers by Charger',
+            content: 'ChargePoint: 408‑370‑3802\nEmporia: 844‑367‑6742\nMercedes-Benz: 855‑502‑3851'
+          }
+        ]
+      }
+    ]
   },
   {
     id: '8',

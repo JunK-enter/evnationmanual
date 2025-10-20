@@ -18,7 +18,6 @@ import {
   FileText
 } from 'lucide-react';
 import Link from 'next/link';
-import LiveChatBot from '@/components/LiveChatBot';
 
 interface Manual {
   id: string;
@@ -111,7 +110,7 @@ const manuals: Manual[] = [
     pages: 28,
     lastUpdated: '2025-09-08',
     coverImage: '/api/placeholder/300/400',
-    pdfUrl: '/manuals/Billing.pdf',
+    pdfUrl: '/manuals/EVnation invoice and billing.pdf',
     rating: 4.8,
     downloads: 95,
     icon: <FileText className="w-6 h-6 text-white" />,
@@ -137,17 +136,17 @@ const manuals: Manual[] = [
   {
     id: '7',
     title: 'EVnation Electrician Process Manual',
-    description: 'Complete process manual for EVnation electricians covering certification requirements, insurance compliance, proper photo documentation procedures, and installation standards. Essential guide for maintaining quality installations and ensuring proper documentation for job verification and payment processing.',
+    description: 'Complete process manual for EVnation electricians covering EVITP certification requirements, insurance compliance, comprehensive photo documentation procedures, payment processes, permit handling, panel upgrade coordination, and manufacturer troubleshooting support. Essential guide for maintaining quality installations and ensuring proper documentation for job verification and payment processing.',
     category: 'Process',
     tags: ['Employee', 'Electrician'],
-    pages: 18,
-    lastUpdated: '2025-09-08',
+    pages: 22,
+    lastUpdated: '2025-01-27',
     coverImage: '/api/placeholder/300/400',
-    pdfUrl: '/manuals/electrician.pdf',
-    rating: 4.8,
-    downloads: 180,
+    pdfUrl: '/manuals/EVnation Electrician Process Manual.pdf',
+    rating: 4.9,
+    downloads: 245,
     icon: <Building2 className="w-6 h-6 text-white" />,
-    keyFeatures: ['Electrician Requirements', 'EVITP Certification', 'Insurance Compliance', 'Photo Documentation', 'Installation Standards', 'Quality Control'],
+    keyFeatures: ['EVITP Certification Requirements', 'Insurance Compliance', 'Photo Documentation Standards', 'Payment Process', 'Permit & Inspection', 'Panel Upgrade Coordination', 'Manufacturer Support'],
     targetAudience: 'EVnation certified electricians and installation teams'
   },
   {
@@ -300,18 +299,18 @@ export default function ManualsPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
               className="bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20"
-            >
+            > 
               <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
                 <div className="text-center">
                   <div className="text-4xl md:text-5xl font-bold text-white mb-2">9</div>
                   <div className="text-blue-200 text-sm font-medium">Available Manuals</div>
-                </div>
+                </div>  
                 <div className="text-center">
-                  <div className="text-4xl md:text-5xl font-bold text-white mb-2">2,790</div>
+                  <div className="text-4xl md:text-5xl font-bold text-white mb-2">2,855</div>
                   <div className="text-blue-200 text-sm font-medium">Total Downloads</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-4xl md:text-5xl font-bold text-white mb-2">4.9</div>
+                  <div className="text-4xl md:text-5xl font-bold text-white mb-2">4.99</div>
                   <div className="text-blue-200 text-sm font-medium">Average Rating</div>
                 </div>
                 <div className="text-center">
@@ -461,7 +460,7 @@ export default function ManualsPage() {
                           <span className="text-xs">{manual.pages} pages</span>
                           <span className="text-xs">•</span>
                           <span className="text-xs">
-                            {manual.id === '1' ? '206KB' : manual.id === '2' ? '1.8MB' : manual.id === '3' ? '708KB' : manual.id === '4' ? '156KB' : manual.id === '5' ? '2.1MB' : manual.id === '6' ? '892KB' : manual.id === '7' ? '1.2MB' : '456KB'}
+                            {manual.id === '1' ? '206KB' : manual.id === '2' ? '1.8MB' : manual.id === '3' ? '708KB' : manual.id === '4' ? '156KB' : manual.id === '5' ? '2.1MB' : manual.id === '6' ? '892KB' : manual.id === '7' ? '1.5MB' : '456KB'}
                           </span>
                         </div>
                       </div>
@@ -580,8 +579,6 @@ export default function ManualsPage() {
         </section>
       </main>
       
-      {/* Live Chat Bot */}
-      <LiveChatBot />
     </div>
   );
 }
