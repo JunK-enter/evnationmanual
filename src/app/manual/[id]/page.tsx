@@ -32,6 +32,7 @@ interface ManualPage {
   pageNumber: number;
   title: string;
   content: string;
+  tips?: string[];
   sections?: {
     title: string;
     content: string;
