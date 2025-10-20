@@ -7,6 +7,9 @@ const nextConfig: NextConfig = {
     optimizePackageImports: ['framer-motion', 'lucide-react'],
   },
   
+  // Fix workspace root warning
+  outputFileTracingRoot: process.cwd(),
+  
   // Image optimization
   images: {
     formats: ['image/webp', 'image/avif'],
