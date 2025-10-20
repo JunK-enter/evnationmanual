@@ -768,12 +768,7 @@ export default function ProcessesPage() {
   }, [searchQuery, selectedFilter]);
 
   const openModal = useCallback((process: ProcessFlow) => {
-    setIsLoading(true);
-    // Simulate loading for better UX
-    setTimeout(() => {
-      setSelectedProcess(process);
-      setIsLoading(false);
-    }, 300);
+    setSelectedProcess(process);
   }, []);
 
   const closeModal = useCallback(() => {

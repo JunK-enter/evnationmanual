@@ -40,6 +40,7 @@ interface ManualPage {
     subsections?: {
       title: string;
       content: string;
+      tips?: string[];
     }[];
   }[];
 }
